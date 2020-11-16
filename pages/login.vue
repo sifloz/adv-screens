@@ -3,31 +3,25 @@
     <div class="center grid">
       <vs-row>
         <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="12">
-          <div class="center element">
-            <vs-select
-              v-model="value1"
-              filter
-              label-placeholder="Elige una zona"
-            >
-              <vs-option label="Torreón, Coah" value="1">
-                Torreón, Coah
-              </vs-option>
-              <vs-option label="Cd Lerdo, Dgo" value="2">
-                Cd Lerdo, Dgo
-              </vs-option>
-              <vs-option label="Gómez Palacio, Dgo" value="3">
-                Gómez Palacio, Dgo
-              </vs-option>
-              <vs-option label="Monterrey, NL" value="4">
-                Monterrey, NL
-              </vs-option>
-            </vs-select>
+          <div class="center content-inputs input-element">
+            <vs-input v-model="email" icon-after label-placeholder="Correo electrónico">
+              <template #icon>
+                <i class="bx bx-user" />
+              </template>
+            </vs-input>
+          </div>
+          <div class="center content-inputs input-element">
+            <vs-input v-model="password" type="password" icon-after label-placeholder="Contraseña">
+              <template #icon>
+                <i class="bx bx-lock-open-alt" />
+              </template>
+            </vs-input>
           </div>
           <div class="center element">
             <vs-button
               block
-              :floating="value1 !== ''"
-              to="/zone/torreon-coah"
+              :floating="email !== '' && password !== ''"
+              to="/admin"
               class="button-margin"
             >
               Acceso
@@ -37,10 +31,14 @@
             <vs-button
               block
               transparent
-              to="/login"
+              to="/"
+              animation-type="scale"
               class="button-margin"
             >
-              Panel de control
+              <i class="bx bxs-home-smile" />
+              <template #animate>
+                Regresar al inicio
+              </template>
             </vs-button>
           </div>
         </vs-col>
@@ -52,9 +50,8 @@
 <script>
 export default {
   data: () => ({
-    value1: '',
-    value2: '',
-    value3: ''
+    email: '',
+    password: ''
   })
 }
 </script>
@@ -72,6 +69,10 @@ export default {
 
 .button-margin {
   margin: 0;
+}
+
+.input-element {
+  margin-bottom: 25px;
 }
 
 .element {
