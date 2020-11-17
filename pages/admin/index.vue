@@ -117,7 +117,7 @@
             </vs-col>
           </vs-row>
           <vs-row>
-            <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="3">
+            <vs-col vs-type="flex" vs-justify="center" vs-align="center" :w="window.width <= 576 ? '12' : window.width > 576 && window.width <= 768 ? '6' : window.width > 768 && window.width <= 1366 ? '3' : '2'">
               <vs-card type="4" @click="dialog=!dialog">
                 <template #title>
                   <h3>Pot with a plant</h3>
@@ -138,7 +138,7 @@
                 </template>
               </vs-card>
             </vs-col>
-            <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="3">
+            <vs-col vs-type="flex" vs-justify="center" vs-align="center" :w="window.width <= 576 ? '12' : window.width > 576 && window.width <= 768 ? '6' : window.width > 768 && window.width <= 1366 ? '3' : '2'">
               <vs-card type="4" @click="dialog=!dialog">
                 <template #title>
                   <h3>Pot with a plant</h3>
@@ -158,7 +158,7 @@
                 </template>
               </vs-card>
             </vs-col>
-            <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="3">
+            <vs-col vs-type="flex" vs-justify="center" vs-align="center" :w="window.width <= 576 ? '12' : window.width > 576 && window.width <= 768 ? '6' : window.width > 768 && window.width <= 1366 ? '3' : '2'">
               <vs-card type="4" @click="dialog=!dialog">
                 <template #title>
                   <h3>Pot with a plant</h3>
@@ -178,7 +178,7 @@
                 </template>
               </vs-card>
             </vs-col>
-            <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="3">
+            <vs-col vs-type="flex" vs-justify="center" vs-align="center" :w="window.width <= 576 ? '12' : window.width > 576 && window.width <= 768 ? '6' : window.width > 768 && window.width <= 1366 ? '3' : '2'">
               <vs-card type="4" @click="dialog=!dialog">
                 <template #title>
                   <h3>Pot with a plant</h3>
@@ -220,7 +220,7 @@
             </vs-col>
           </vs-row>
           <vs-row>
-            <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="3">
+            <vs-col vs-type="flex" vs-justify="center" vs-align="center" :w="window.width <= 576 ? '12' : window.width > 576 && window.width <= 768 ? '6' : window.width > 768 && window.width <= 1200 ? '4' : '3'">
               <vs-button
                 block
                 gradient
@@ -230,7 +230,7 @@
                 Torreón, Coah.
               </vs-button>
             </vs-col>
-            <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="3">
+            <vs-col vs-type="flex" vs-justify="center" vs-align="center" :w="window.width <= 576 ? '12' : window.width > 576 && window.width <= 768 ? '6' : window.width > 768 && window.width <= 1200 ? '4' : '3'">
               <vs-button
                 block
                 gradient
@@ -241,7 +241,7 @@
                 Torreón, Coah.
               </vs-button>
             </vs-col>
-            <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="3">
+            <vs-col vs-type="flex" vs-justify="center" vs-align="center" :w="window.width <= 576 ? '12' : window.width > 576 && window.width <= 768 ? '6' : window.width > 768 && window.width <= 1200 ? '4' : '3'">
               <vs-button
                 block
                 gradient
@@ -251,7 +251,7 @@
                 Torreón, Coah.
               </vs-button>
             </vs-col>
-            <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="3">
+            <vs-col vs-type="flex" vs-justify="center" vs-align="center" :w="window.width <= 576 ? '12' : window.width > 576 && window.width <= 768 ? '6' : window.width > 768 && window.width <= 1200 ? '4' : '3'">
               <vs-button
                 block
                 gradient
@@ -274,7 +274,12 @@ export default {
   data: () => ({
     active: 'home',
     page: 1,
-    dialog: false
+    dialog: false,
+    window: {
+      width: 0,
+      height: 0
+    },
+    windowWidth: 0
   }),
   mounted () {
     const loading = this.$vs.loading({
@@ -284,6 +289,22 @@ export default {
     setTimeout(() => {
       loading.close()
     }, 3000)
+    window.addEventListener('resize', this.handleResize)
+    this.handleResize()
+  },
+  // created () {
+  //   window.addEventListener('resize', this.handleResize)
+  //   this.handleResize()
+  // },
+  // destroyed () {
+  //   window.removeEventListener('resize', this.handleResize)
+  // },
+  methods: {
+    handleResize () {
+      console.log('RESIZING')
+      this.window.width = window.innerWidth
+      this.window.height = window.innerHeight
+    }
   }
 }
 </script>
