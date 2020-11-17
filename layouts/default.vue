@@ -71,4 +71,8 @@ html {
   color: #fff;
   background-color: #35495e;
 }
+
+.vs-card__text {
+  width: 100%;
+}
 </style>

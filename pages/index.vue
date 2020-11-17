@@ -55,8 +55,26 @@ export default {
       { id: 'lerdo-dgo', name: 'Cd Lerdo, Dgo', videos: [], frame: '' },
       { id: 'gomez-dgo', name: 'Gómez Palacio, Dgo', videos: [], frame: '' },
       { id: 'monterrey-nl', name: 'Monterrey, NL', videos: [], frame: '' }
-    ]
+    ],
+    zonesCopy: []
   }),
+  mounted () {
+    // const value = this.$fire.firestore
+    //   .collection('zones')
+    //   .doc('zones')
+    // console.log('VALUE: ', value)
+    // try {
+    //   const doc = value.data()
+    //   this.zonesCopy = doc
+    //   if (!doc) {
+    //     alert('Document does not exist.')
+    //     return
+    //   }
+    //   alert(doc.message)
+    // } catch (e) {
+    //   alert(e)
+    // }
+  },
   methods: {
     validateZone () {
       if (this.value1 === '') {
