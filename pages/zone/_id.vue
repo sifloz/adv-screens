@@ -198,6 +198,7 @@ export default {
   -webkit-box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.25);
   -moz-box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.25);
   box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
 }
 .embed-responsive-16by9::before {
   padding-top: 56.25%;

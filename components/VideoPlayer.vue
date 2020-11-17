@@ -27,7 +27,7 @@ export default {
     this.player = videojs(this.$refs.videoPlayer)
     this.player.muted(true)
     this.player.autoplay(true)
-    this.player.controls(true)
+    this.player.controls(false)
     this.player.playlist(this.options.samplePlaylist)
     this.player.playlist.repeat(true)
     this.player.playlist.autoadvance(0)
@@ -52,6 +52,8 @@ video {
   width: 100%;
   height: 100%;
   border: 0;
+  outline: 0;
+  pointer-events: none;
 }
 .vjs-control-bar {
   display: none;
