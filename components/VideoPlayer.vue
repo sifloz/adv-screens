@@ -66,8 +66,8 @@ video {
   visibility: hidden;
 }
 .vjs-big-play-button {
-  /* display: none;
-  visibility: hidden; */
+  display: none;
+  visibility: hidden;
   z-index: 101;
 }
 .vjs-loading-spinner {
