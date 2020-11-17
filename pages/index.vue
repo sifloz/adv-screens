@@ -13,17 +13,8 @@
               <template v-if="errorZone" #message-danger>
                 Por favor elige una zona
               </template>
-              <vs-option label="Torreón, Coah" value="torreon-coah">
-                Torreón, Coah
-              </vs-option>
-              <vs-option label="Cd Lerdo, Dgo" value="lerdo-dgo">
-                Cd Lerdo, Dgo
-              </vs-option>
-              <vs-option label="Gómez Palacio, Dgo" value="gomez-palacio-dgo">
-                Gómez Palacio, Dgo
-              </vs-option>
-              <vs-option label="Monterrey, NL" value="monterrey-nl">
-                Monterrey, NL
+              <vs-option v-for="zone in zones" :key="zone.id" :label="zone.name" :value="zone.id">
+                {{ zone.name }}
               </vs-option>
             </vs-select>
           </div>
@@ -58,7 +49,13 @@ export default {
   data: () => ({
     value1: '',
     errorZone: false,
-    accesing: false
+    accesing: false,
+    zones: [
+      { id: 'torreon-coah', name: 'Torreón, Coah', videos: [], frame: '' },
+      { id: 'lerdo-dgo', name: 'Cd Lerdo, Dgo', videos: [], frame: '' },
+      { id: 'gomez-dgo', name: 'Gómez Palacio, Dgo', videos: [], frame: '' },
+      { id: 'monterrey-nl', name: 'Monterrey, NL', videos: [], frame: '' }
+    ]
   }),
   methods: {
     validateZone () {
