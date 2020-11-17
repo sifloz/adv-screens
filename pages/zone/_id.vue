@@ -70,38 +70,10 @@ export default {
   data: () => ({
     active: '',
     activeSidebar: false,
-    playlist: [
-      {
-        id: 1,
-        source: 'https://s3-us-west-2.amazonaws.com/iungo.files/landing/microsites/DNA-presentacion.mp4',
-        type: 'video/mp4'
-      },
-      {
-        id: 2,
-        source: 'https://s3-us-west-2.amazonaws.com/iungo.files/landing/microsites/DPE-presentacion.mp4',
-        type: 'video/mp4'
-      },
-      {
-        id: 3,
-        source: 'https://s3-us-west-2.amazonaws.com/iungo.files/landing/microsites/DES/promocional.mp4',
-        type: 'video/mp4'
-      }
-    ],
+    loading: true,
     videoOptions: {
       autoplay: true,
       controls: true,
-      sources: [
-        {
-          id: 1,
-          source: 'https://s3-us-west-2.amazonaws.com/iungo.files/landing/microsites/DNA-presentacion.mp4',
-          type: 'video/mp4'
-        },
-        {
-          id: 2,
-          source: 'https://s3-us-west-2.amazonaws.com/iungo.files/landing/microsites/DPE-presentacion.mp4',
-          type: 'video/mp4'
-        }
-      ],
       samplePlaylist: [
         {
           sources: [
@@ -127,26 +99,14 @@ export default {
             }
           ]
         }
-      ],
-      playlist: [
-        {
-          id: 1,
-          source: 'https://s3-us-west-2.amazonaws.com/iungo.files/landing/microsites/DNA-presentacion.mp4',
-          type: 'video/mp4'
-        },
-        {
-          id: 2,
-          source: 'https://s3-us-west-2.amazonaws.com/iungo.files/landing/microsites/DPE-presentacion.mp4',
-          type: 'video/mp4'
-        },
-        {
-          id: 3,
-          source: 'https://s3-us-west-2.amazonaws.com/iungo.files/landing/microsites/DES/promocional.mp4',
-          type: 'video/mp4'
-        }
       ]
     }
-  })
+  }),
+  mounted () {
+    setTimeout(() => {
+      this.loading = false
+    }, 2000)
+  }
 }
 </script>
 
