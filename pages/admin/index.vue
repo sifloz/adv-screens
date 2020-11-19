@@ -1,6 +1,6 @@
 <template>
   <div>
-    <vs-dialog v-model="dialog" blur prevent-close>
+    <vs-dialog v-model="video.dialog" blur prevent-close>
       <template #header>
         <h4 class="not-margin">
           Nombre del vídeo.mp4
@@ -12,7 +12,7 @@
           <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="12">
             <div class="video-container">
               <div class="embed-responsive embed-responsive-16by9">
-                <video shadow muted autoplay height="100%">
+                <video shadow muted autoplay loop height="100%">
                   <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
                   Tu navegador de internet no soporta la etiqueta vídeo.
                 </video>
@@ -35,7 +35,6 @@
                 filter
                 multiple
                 placeholder="Buscar"
-                style="margin-bottom: 1.2rem;"
               >
                 <vs-option label="Torreón, Coah." value="1">
                   Torreón, Coah.
@@ -51,25 +50,29 @@
                 </vs-option>
               </vs-select>
             </div>
-            <div style="display: flex; width: 100%; align-items: center;">
-              <vs-button
-                icon
-                danger
-                border
-                style="min-width: 41px;"
-                @click="video.deleteAction=true"
-              >
-                <i class="bx bx-trash" />
-              </vs-button>
-              <vs-button
-                block
-              >
-                Guardar cambios
-              </vs-button>
-            </div>
           </vs-col>
         </vs-row>
       </div>
+      <template #footer>
+        <div style="display: flex; width: 100%; align-items: center;">
+          <vs-button
+            icon
+            danger
+            border
+            style="min-width: 41px;"
+            @click="video.deleteAction=true"
+          >
+            <i class="bx bx-trash" />
+          </vs-button>
+          <vs-button
+            block
+            :loading="video.saving"
+            @click="saveVideoHandler"
+          >
+            Guardar cambios
+          </vs-button>
+        </div>
+      </template>
 
       <!-- <template #footer>
         <div class="footer-dialog">
@@ -90,7 +93,7 @@
         </h4>
       </template>
       <p style="text-align: center;">
-        ¿Estás seguro de que quieres eliminar este vídeo?<br/>Una vez eliminado no podrás recuperarlo<br/><br/>
+        ¿Estás seguro de que quieres eliminar este vídeo?<br>Una vez eliminado no podrás recuperarlo<br><br>
       </p>
       <template #footer>
         <div class="center grid">
@@ -100,6 +103,7 @@
                 block
                 dark
                 transparent
+                @click="video.deleteAction = false"
               >
                 Cancelar
               </vs-button>
@@ -108,6 +112,82 @@
               <vs-button
                 block
                 danger
+                :loading="video.deleting"
+                @click="deleteVideoHandler"
+              >
+                Eliminar
+              </vs-button>
+            </vs-col>
+          </vs-row>
+        </div>
+      </template>
+    </vs-dialog>
+    <vs-dialog width="300px" not-center v-model="zone.dialog">
+      <template #header>
+        <h4 class="not-margin" style="margin-bottom: 1rem;">
+          Información de la zona
+        </h4>
+      </template>
+
+      <div class="con-content" style="margin-bottom: 1rem;">
+        <vs-input v-model="zone.name" block label-placeholder="Nombre de la zona"></vs-input>
+      </div>
+
+      <template #footer>
+        <div class="con-footer">
+          <div style="margin-right: auto;">
+            <vs-button
+              icon
+              danger
+              border
+              style="min-width: 41px;"
+              @click="zone.deleteAction=true"
+            >
+              <i class="bx bx-trash" />
+            </vs-button>
+          </div>
+          <div style="display: flex; align-items: center;">
+          <vs-button @click="zone.dialog=false" dark transparent>
+            Cancelar
+          </vs-button>
+          <vs-button
+            :loading="zone.saving"
+            @click="saveZoneHandler"
+          >
+            Guardar
+          </vs-button>
+          </div>
+        </div>
+      </template>
+    </vs-dialog>
+    <vs-dialog v-model="zone.deleteAction" width="330px">
+      <template #header>
+        <h4 class="not-margin">
+          Eliminar zona
+        </h4>
+      </template>
+      <p style="text-align: center;">
+        ¿Estás seguro de que quieres eliminar esta zona?<br>Una vez eliminada, ya no tendrás acceso a ella ni podrás recuperarla<br><br>
+      </p>
+      <template #footer>
+        <div class="center grid">
+          <vs-row>
+            <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="6">
+              <vs-button
+                block
+                dark
+                transparent
+                @click="zone.deleteAction = false"
+              >
+                Cancelar
+              </vs-button>
+            </vs-col>
+            <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="6">
+              <vs-button
+                block
+                danger
+                :loading="zone.deleting"
+                @click="deleteZoneHandler"
               >
                 Eliminar
               </vs-button>
@@ -177,7 +257,7 @@
       </div>
     </template>
     <div class="container">
-      <div class="sub-container" ref="holder">
+      <div ref="holder" class="sub-container">
         <div class="center-grid" style="margin-bottom: 2rem;">
           <vs-row style="margin-bottom: 1rem;">
             <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="12">
@@ -190,7 +270,7 @@
                     Ver todos
                   </NuxtLink>
                   <div class="center con-pagination">
-                    <vs-pagination only-arrows v-model="page" :length="10" />
+                    <vs-pagination v-model="page" only-arrows :length="10" />
                   </div>
                 </div>
               </div>
@@ -198,7 +278,7 @@
           </vs-row>
           <vs-row>
             <vs-col vs-type="flex" vs-justify="center" vs-align="center" :w="window.width <= 576 ? '12' : window.width > 576 && window.width <= 768 ? '6' : window.width > 768 && window.width <= 1366 ? '3' : '2'">
-              <vs-card type="4" @click="dialog=!dialog">
+              <!-- <vs-card type="4" @click="video.dialog=!video.dialog">
                 <template #title>
                   <h3>Pot with a plant</h3>
                 </template>
@@ -216,71 +296,54 @@
                     </span>
                   </vs-button>
                 </template>
-              </vs-card>
-            </vs-col>
-            <vs-col vs-type="flex" vs-justify="center" vs-align="center" :w="window.width <= 576 ? '12' : window.width > 576 && window.width <= 768 ? '6' : window.width > 768 && window.width <= 1366 ? '3' : '2'">
-              <vs-card type="4" @click="dialog=!dialog">
-                <template #title>
-                  <h3>Pot with a plant</h3>
-                </template>
+              </vs-card> -->
+              <vs-card type="4" @click="video.dialog=!video.dialog">
                 <template #img>
-                  <img src="https://vuesax.com/foto2.jpg" alt="">
+                  <!-- <div style="display: flex; width: 100%; justify-content: center; align-items: center;">
+                  </div> -->
+                  <div class="upload-text-container">
+                    <i class="bx bx-plus" />
+                    <p>
+                      Subir vídeo(s)
+                    </p>
+                  </div>
+                  <img src="~/assets/images/square.png" alt="">
                 </template>
                 <template #text>
-                  <p/>
-                </template>
-                <template #interactions>
-                  <vs-button class="btn-chat" shadow primary>
-                    <span class="span">
-                      0:45
-                    </span>
-                  </vs-button>
+                  <p />
+                  <div style="display:block; width: 100%" />
                 </template>
               </vs-card>
             </vs-col>
-            <vs-col vs-type="flex" vs-justify="center" vs-align="center" :w="window.width <= 576 ? '12' : window.width > 576 && window.width <= 768 ? '6' : window.width > 768 && window.width <= 1366 ? '3' : '2'">
-              <vs-card type="4" @click="dialog=!dialog">
-                <template #title>
-                  <h3>Pot with a plant</h3>
-                </template>
-                <template #img>
-                  <img src="https://vuesax.com/foto2.jpg" alt="">
-                </template>
-                <template #text>
-                  <p/>
-                </template>
-                <template #interactions>
-                  <vs-button class="btn-chat" shadow primary>
-                    <span class="span">
-                      0:50
-                    </span>
-                  </vs-button>
-                </template>
-              </vs-card>
-            </vs-col>
-            <vs-col vs-type="flex" vs-justify="center" vs-align="center" :w="window.width <= 576 ? '12' : window.width > 576 && window.width <= 768 ? '6' : window.width > 768 && window.width <= 1366 ? '3' : '2'">
-              <vs-card type="4" @click="dialog=!dialog">
-                <template #title>
-                  <h3>Pot with a plant</h3>
-                </template>
-                <template #img>
-                  <img src="https://vuesax.com/foto2.jpg" alt="">
-                </template>
-                <template #text>
-                  <p/>
-                </template>
-                <template #interactions>
-                  <vs-button class="btn-chat" shadow primary>
-                    <span class="span">
-                      0:25
-                    </span>
-                  </vs-button>
-                </template>
-              </vs-card>
-            </vs-col>
+              <vs-col
+                v-for="_video in videos"
+                :key="_video.id"
+                vs-type="flex"
+                vs-justify="center"
+                vs-align="center"
+                :w="window.width <= 576 ? '12' : window.width > 576 && window.width <= 768 ? '6' : window.width > 768 && window.width <= 1366 ? '3' : '2'"
+              >
+                <vs-card type="4" @click="video.dialog=!video.dialog">
+                  <template #title>
+                    <h3 class="video-title">{{ _video.name }}</h3>
+                  </template>
+                  <template #img>
+                    <img :src="_video.thumbnail" alt="">
+                  </template>
+                  <template #text>
+                    <p />
+                  </template>
+                  <template #interactions>
+                    <vs-button class="btn-chat" shadow primary>
+                      <span class="span">
+                        {{ _video.duration }}
+                      </span>
+                    </vs-button>
+                  </template>
+                </vs-card>
+              </vs-col>
           </vs-row>
         </div>
-
         <div class="center-grid">
           <vs-row style="margin-bottom: 1rem;">
             <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="12">
@@ -293,53 +356,29 @@
                     Ver todas
                   </NuxtLink>
                   <div class="center con-pagination">
-                    <vs-pagination only-arrows v-model="page" :length="10" />
+                    <vs-pagination v-model="zonePage" only-arrows :length="10" />
                   </div>
                 </div>
               </div>
             </vs-col>
           </vs-row>
           <vs-row>
-            <vs-col vs-type="flex" vs-justify="center" vs-align="center" :w="window.width <= 576 ? '12' : window.width > 576 && window.width <= 768 ? '6' : window.width > 768 && window.width <= 1200 ? '4' : '3'">
+            <vs-col
+              v-for="_zone in zones"
+              :key="_zone.id"
+              vs-type="flex"
+              vs-justify="center"
+              vs-align="center"
+              :w="window.width <= 576 ? '12' : window.width > 576 && window.width <= 768 ? '6' : window.width > 768 && window.width <= 1200 ? '4' : '3'"
+            >
               <vs-button
                 block
                 gradient
                 size="xl"
-                style="padding: 35px; min-height: 112px;"
+                style="padding: 35px; min-height: 142px;"
+                @click="zone.dialog=!zone.dialog"
               >
-                Torreón, Coah.
-              </vs-button>
-            </vs-col>
-            <vs-col vs-type="flex" vs-justify="center" vs-align="center" :w="window.width <= 576 ? '12' : window.width > 576 && window.width <= 768 ? '6' : window.width > 768 && window.width <= 1200 ? '4' : '3'">
-              <vs-button
-                block
-                gradient
-                warn
-                size="xl"
-                style="padding: 35px; min-height: 112px;"
-              >
-                Torreón, Coah.
-              </vs-button>
-            </vs-col>
-            <vs-col vs-type="flex" vs-justify="center" vs-align="center" :w="window.width <= 576 ? '12' : window.width > 576 && window.width <= 768 ? '6' : window.width > 768 && window.width <= 1200 ? '4' : '3'">
-              <vs-button
-                block
-                gradient
-                size="xl"
-                style="padding: 35px; min-height: 112px;"
-              >
-                Torreón, Coah.
-              </vs-button>
-            </vs-col>
-            <vs-col vs-type="flex" vs-justify="center" vs-align="center" :w="window.width <= 576 ? '12' : window.width > 576 && window.width <= 768 ? '6' : window.width > 768 && window.width <= 1200 ? '4' : '3'">
-              <vs-button
-                block
-                gradient
-                warn
-                size="xl"
-                style="padding: 35px; min-height: 112px;"
-              >
-                Torreón, Coah.
+                {{ _zone.name }}
               </vs-button>
             </vs-col>
           </vs-row>
@@ -353,14 +392,101 @@
 export default {
   data: () => ({
     active: 'home',
+    created: false,
     page: 1,
+    zonePage: 1,
+    settings: {
+      dots: true,
+      slidesToShow: 3
+    },
     video: {
       id: 1,
       name: 'Mi video de ejemplo',
       zones: ['1', '2'],
-      deleteAction: false
+      deleteAction: false,
+      deleting: false,
+      saving: false,
+      dialog: false
     },
-    dialog: false,
+    videos: [
+      {
+        id: 1,
+        name: 'Roosevelt-Feels-Right',
+        duration: '30000',
+        type: 'video/mp4',
+        thumbnail: 'https://vuesax.com/foto2.jpg',
+        source: 'https://drive.google.com/uc?export=download&id=1nUp1y5Vuh-hCoIXz6LRUMjNef4hITdnR'
+      },
+      {
+        id: 2,
+        name: 'Marina-IDont-Wanna-Live-In-A-Mens Worl',
+        duration: '45000',
+        type: 'video/mp4',
+        thumbnail: 'https://vuesax.com/foto13.png',
+        source: 'https://drive.google.com/uc?export=download&id=1Ow4CY58HtlKBK3ySKaY3julAStNxHuLJ'
+      },
+      {
+        id: 3,
+        name: 'LImperatrice-Mathara',
+        duration: '38000',
+        type: 'video/mp4',
+        thumbnail: 'https://vuesax.com/foto1.png',
+        source: 'https://drive.google.com/uc?export=download&id=1nRY2qPHyMfMenO4ZKozjXlwjd3Nbh8MW'
+      },
+      {
+        id: 4,
+        name: 'Miami-Horror-Sometimes',
+        duration: '52000',
+        type: 'video/mp4',
+        thumbnail: 'https://vuesax.com/foto3.png',
+        source: 'https://drive.google.com/uc?export=download&id=1nUp1y5Vuh-hCoIXz6LRUMjNef4hITdnR'
+      },
+      {
+        id: 5,
+        name: 'SHes a thease- WHY',
+        duration: '19000',
+        type: 'video/mp4',
+        thumbnail: 'https://vuesax.com/foto2.jpg',
+        source: 'https://drive.google.com/uc?export=download&id=1Ow4CY58HtlKBK3ySKaY3julAStNxHuLJ'
+      },
+      {
+        id: 6,
+        name: 'Metronomy-La-dolce vita',
+        duration: '45000',
+        type: 'video/mp4',
+        thumbnail: 'https://vuesax.com/foto13.png',
+        source: 'https://drive.google.com/uc?export=download&id=1nRY2qPHyMfMenO4ZKozjXlwjd3Nbh8MW'
+      }
+    ],
+    zone: {
+      name: 'Torreón Coah',
+      deleteAction: false,
+      deleting: false,
+      saving: false,
+      dialog: false
+    },
+    zones: [
+      {
+        id: 1,
+        name: 'Torreón, Coah.'
+      },
+      {
+        id: 2,
+        name: 'Cd Lerdo, Dgo.'
+      },
+      {
+        id: 3,
+        name: 'Gómez Palacio, Dgo.'
+      },
+      {
+        id: 4,
+        name: 'Monterrey, NL.'
+      },
+      {
+        id: 5,
+        name: 'Saltillo, Coah.'
+      }
+    ],
     window: {
       width: 0,
       height: 0
@@ -374,9 +500,12 @@ export default {
     })
     setTimeout(() => {
       loading.close()
-    }, 3000)
+    }, 2000)
     window.addEventListener('resize', this.handleResize)
     this.handleResize()
+  },
+  beforeMount () {
+    this.created = true
   },
   // created () {
   //   window.addEventListener('resize', this.handleResize)
@@ -387,9 +516,64 @@ export default {
   // },
   methods: {
     handleResize () {
-      console.log('RESIZING')
       this.window.width = window.innerWidth
       this.window.height = window.innerHeight
+    },
+    saveVideoHandler () {
+      this.video.saving = true
+      setTimeout(() => {
+        this.video.saving = false
+        this.$vs.notification({
+          icon: "<i class='bx bx-check-circle'></i>",
+          border: 'success',
+          duration: 4000,
+          title: 'Guardar cambios',
+          text: 'Se actualizó la información del vídeo'
+        })
+      }, 400)
+    },
+    deleteVideoHandler () {
+      this.video.deleting = true
+      setTimeout(() => {
+        this.video.deleting = false
+        this.video.deleteAction = false
+        this.video.dialog = false
+        this.$vs.notification({
+          icon: "<i class='bx bx-trash'></i>",
+          border: 'success',
+          duration: 4000,
+          title: 'Eliminar vídeo',
+          text: 'El vídeo ha sido eliminado'
+        })
+      }, 400)
+    },
+    saveZoneHandler () {
+      this.zone.saving = true
+      setTimeout(() => {
+        this.zone.saving = false
+        this.$vs.notification({
+          icon: "<i class='bx bx-check-circle'></i>",
+          border: 'success',
+          duration: 4000,
+          title: 'Guardar cambios',
+          text: 'Se actualizó la información de la zona'
+        })
+      }, 400)
+    },
+    deleteZoneHandler () {
+      this.zone.deleting = true
+      setTimeout(() => {
+        this.zone.deleting = false
+        this.zone.deleteAction = false
+        this.zone.dialog = false
+        this.$vs.notification({
+          icon: "<i class='bx bx-trash'></i>",
+          border: 'success',
+          duration: 4000,
+          title: 'Eliminar zona',
+          text: 'La zona ha sido eliminado'
+        })
+      }, 400)
     }
   }
 }
@@ -448,5 +632,43 @@ a, a:hover, a:visited, a:active, a:focus {
 }
 .content-inputs {
   margin-bottom: 2rem;
+}
+.con-footer {
+  display: flex;
+  align-items: center;
+  widows: 100%;
+}
+.upload-text-container {
+  background-color: #ffffff;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  z-index: 1;
+}
+.bx-plus {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+.upload-text-container:hover .bx-plus {
+  -webkit-animation: tada 1.5s ease infinite;
+  animation: tada 1.5s ease infinite;
+}
+.video-title {
+  display: inline-block;
+  width: 180px;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+}
+.vs-card:hover .video-title {
+  white-space: normal;
+  text-overflow: unset;
+  overflow: unset !important;
 }
 </style>
