@@ -3,28 +3,75 @@
     <vs-dialog v-model="dialog" blur prevent-close>
       <template #header>
         <h4 class="not-margin">
-          Welcome to <b>Vuesax</b>
+          Nombre del vídeo.mp4
         </h4>
       </template>
 
-      <div class="con-form">
-        <vs-input placeholder="Email">
-          <template #icon>
-            @
-          </template>
-        </vs-input>
-        <vs-input type="password" placeholder="Password">
-          <template #icon>
-            <i class='bx bxs-lock'></i>
-          </template>
-        </vs-input>
-        <div class="flex">
-          <vs-checkbox>Remember me</vs-checkbox>
-          <a href="#">Forgot Password?</a>
-        </div>
+      <div class="center grid">
+        <vs-row>
+          <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="12">
+            <div class="video-container">
+              <div class="embed-responsive embed-responsive-16by9">
+                <video shadow muted autoplay height="100%">
+                  <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                  Tu navegador de internet no soporta la etiqueta vídeo.
+                </video>
+              </div>
+            </div>
+          </vs-col>
+          <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="12">
+            <div class="video-info-container">
+              <div class="content-inputs">
+                <vs-input
+                  v-model="video.name"
+                  block
+                  label-placeholder="Nombre del vídeo"
+                />
+              </div>
+              <vs-select
+                v-model="video.zones"
+                label="Visibilidad en zonas"
+                block
+                filter
+                multiple
+                placeholder="Buscar"
+                style="margin-bottom: 1.2rem;"
+              >
+                <vs-option label="Torreón, Coah." value="1">
+                  Torreón, Coah.
+                </vs-option>
+                <vs-option label="Cd Lerdo, Dgo." value="2">
+                  Cd Lerdo, Dgo.
+                </vs-option>
+                <vs-option label="Gómez Palacio, Dgo." value="3">
+                  Gómez Palacio, Dgo.
+                </vs-option>
+                <vs-option label="Monterrey, NL." value="4">
+                  Monterrey, NL.
+                </vs-option>
+              </vs-select>
+            </div>
+            <div style="display: flex; width: 100%; align-items: center;">
+              <vs-button
+                icon
+                danger
+                border
+                style="min-width: 41px;"
+                @click="video.deleteAction=true"
+              >
+                <i class="bx bx-trash" />
+              </vs-button>
+              <vs-button
+                block
+              >
+                Guardar cambios
+              </vs-button>
+            </div>
+          </vs-col>
+        </vs-row>
       </div>
 
-      <template #footer>
+      <!-- <template #footer>
         <div class="footer-dialog">
           <vs-button block>
             Sign In
@@ -33,6 +80,39 @@
           <div class="new">
             New Here? <a href="#">Create New Account</a>
           </div>
+        </div>
+      </template> -->
+    </vs-dialog>
+    <vs-dialog v-model="video.deleteAction" width="330px">
+      <template #header>
+        <h4 class="not-margin">
+          Eliminar vídeo
+        </h4>
+      </template>
+      <p style="text-align: center;">
+        ¿Estás seguro de que quieres eliminar este vídeo?<br/>Una vez eliminado no podrás recuperarlo<br/><br/>
+      </p>
+      <template #footer>
+        <div class="center grid">
+          <vs-row>
+            <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="6">
+              <vs-button
+                block
+                dark
+                transparent
+              >
+                Cancelar
+              </vs-button>
+            </vs-col>
+            <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="6">
+              <vs-button
+                block
+                danger
+              >
+                Eliminar
+              </vs-button>
+            </vs-col>
+          </vs-row>
         </div>
       </template>
     </vs-dialog>
@@ -274,6 +354,12 @@ export default {
   data: () => ({
     active: 'home',
     page: 1,
+    video: {
+      id: 1,
+      name: 'Mi video de ejemplo',
+      zones: ['1', '2'],
+      deleteAction: false
+    },
     dialog: false,
     window: {
       width: 0,
@@ -328,5 +414,39 @@ export default {
 a, a:hover, a:visited, a:active, a:focus {
   color: #000000;
   text-decoration: none;
+}
+.embed-responsive {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 14px;
+}
+.embed-responsive-16by9::before {
+  padding-top: 56.25%;
+}
+.embed-responsive .embed-responsive-item, .embed-responsive embed, .embed-responsive iframe, .embed-responsive object, .embed-responsive video {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  outline: 0;
+  background-color: #000000;
+}
+.video-container {
+  height: 35vh;
+  padding: 0;
+  margin-bottom: 1rem;
+}
+.video-info-container {
+  padding-top: 1.2rem;
+}
+.content-inputs {
+  margin-bottom: 2rem;
 }
 </style>
