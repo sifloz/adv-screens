@@ -100,9 +100,23 @@ export default {
           ]
         }
       ]
-    }
+    },
+    currentZone: {}
   }),
+  // computed: {
+  //   zone () {
+  //     const zone = this.$store.getters.getZone(this.$route.params.id)
+  //     this.currentZone = zone
+  //     this.videoOptions.samplePlaylist = zone.playlists[0]
+  //     return zone
+  //   }
+  // },
+  beforeMount () {
+    this.currentZone = this.$store.getters.getZone(this.$route.params.id)
+    this.videoOptions.samplePlaylist = this.currentZone.playlists[0].videos
+  },
   mounted () {
+    console.log('CONTEXT: ', this.$route.params)
     setTimeout(() => {
       this.loading = false
     }, 2000)
@@ -141,10 +155,10 @@ export default {
 .video-container {
   background-color: transparent;
   border: 0;
-  width: 80%;
-  height: 80%;
-  max-width: 80%;
-  max-height: 80%;
+  width: 66.67%;
+  height: 66.67%;
+  max-width: 66.67%;
+  max-height: 66.67%;
 }
 .embed-responsive {
   background-color: #000000;

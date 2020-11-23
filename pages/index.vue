@@ -18,6 +18,17 @@
               </vs-option>
             </vs-select>
           </div>
+          <div v-if="value1 !== ''" class="center element">
+            <vs-input
+              v-model="zoneCode"
+              label-placeholder="Código de acceso"
+              type="password"
+            >
+              <template v-if="errorZoneCode" #message-danger>
+                {{ zoneCode === '' ? 'Introduce el código de acceso' : 'El código de acceso es incorrecto' }}
+              </template>
+            </vs-input>
+          </div>
           <div class="center element">
             <vs-button
               block
@@ -48,15 +59,19 @@
 export default {
   data: () => ({
     value1: '',
+    zoneCode: '',
     errorZone: false,
+    errorZoneCode: false,
     accesing: false,
     zones: [
-      { id: 'torreon-coah', name: 'Torreón, Coah', videos: [], frame: '' },
-      { id: 'lerdo-dgo', name: 'Cd Lerdo, Dgo', videos: [], frame: '' },
-      { id: 'gomez-dgo', name: 'Gómez Palacio, Dgo', videos: [], frame: '' },
-      { id: 'monterrey-nl', name: 'Monterrey, NL', videos: [], frame: '' }
+      { id: 'torreon-coah', name: 'Torreón, Coah', code: 'trn012020', videos: [], frame: '' },
+      { id: 'saltillo-coah', name: 'Saltillo, Coah', code: 'slt012020', videos: [], frame: '' }
+      // { id: 'lerdo-dgo', name: 'Cd Lerdo, Dgo', code: '', videos: [], frame: '' },
+      // { id: 'gomez-dgo', name: 'Gómez Palacio, Dgo', videos: [], frame: '' },
+      // { id: 'monterrey-nl', name: 'Monterrey, NL', code: '', videos: [], frame: '' }
     ],
-    zonesCopy: []
+    zonesCopy: [],
+    selectedZone: {}
   }),
   mounted () {
     // const value = this.$fire.firestore
@@ -79,8 +94,12 @@ export default {
     validateZone () {
       if (this.value1 === '') {
         this.errorZone = true
+      } else if (this.zoneCode === '' || this.zoneCode !== this.selectedZone.code) {
+        this.errorZoneCode = true
       } else {
         this.accesing = true
+        this.errorZoneCode = false
+        this.errorZone = false
         setTimeout(() => {
           // this.accesing = false
           this.$router.push(`/zone/${this.value1}`)
@@ -89,6 +108,9 @@ export default {
     },
     setZone () {
       this.errorZone = false
+      this.errorZoneCode = false
+      const selectedZoneId = this.zones.findIndex(item => item.id === this.value1)
+      this.selectedZone = this.zones[selectedZoneId]
     }
   }
 }
@@ -110,6 +132,6 @@ export default {
 }
 
 .element {
-  margin: 15px 0;
+  margin: 18px 0;
 }
 </style>
