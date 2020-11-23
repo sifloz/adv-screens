@@ -15,7 +15,12 @@
           </template>
           Regresar al inicio
         </vs-sidebar-item> -->
-          <div style="display: flex; margin-top: 1.6rem;">
+          <div style="display: flex; margin-top: 1.6rem; padding-left: 1rem;">
+            <div class="center">
+              <h4>{{ currentZone.name }}</h4>
+            </div>
+          </div>
+          <div style="display: flex; margin-top: 1rem;">
               <template>
                 <div class="center">
                   <vs-table v-model="selectedPlaylist" style="min-width: 260px;">
@@ -33,7 +38,8 @@
                         :data="tr"
                         :is-selected="selectedPlaylist == tr"
                       >
-                        <vs-td>
+                        <vs-td :style="selectedPlaylist == tr ? 'display: flex; align-items: center; font-weight: 700;' : 'display: flex; align-items: center;'">
+                          <i v-if="selectedPlaylist == tr" class="bx bx-play-circle" style="margin-top: 2px; margin-right: 5px; font-size: 1.5rem;" />
                           {{ tr.name }}
                         </vs-td>
                         <!-- <template #expand>

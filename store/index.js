@@ -7,7 +7,7 @@ export const state = () => ({
       playlists: [
         {
           id: 1,
-          name: 'promo-1-torreon',
+          name: 'Promo Navidad',
           frame: '',
           videos: [
             {
@@ -38,7 +38,7 @@ export const state = () => ({
         },
         {
           id: 2,
-          name: 'promo-2-torreon',
+          name: 'Promo Fiestas',
           frame: '',
           videos: [
             {
@@ -76,7 +76,7 @@ export const state = () => ({
       playlists: [
         {
           id: 3,
-          name: 'promo-1-saltillo',
+          name: 'Promo Vacaciones',
           frame: '',
           videos: [
             {
