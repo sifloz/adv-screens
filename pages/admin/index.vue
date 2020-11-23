@@ -258,7 +258,7 @@
     </template>
     <div class="container">
       <div ref="holder" class="sub-container">
-        <div class="center-grid" style="margin-bottom: 2rem;">
+        <div class="center-grid">
           <vs-row style="margin-bottom: 1rem;">
             <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="12">
               <div style="display: flex; width: 100%; align-items: center; justify-content: space-between;">
@@ -266,11 +266,29 @@
                   Vídeos recientes
                 </h4>
                 <div style="display: flex; align-items: center;">
-                  <NuxtLink to="/admin/videos" style="margin-right: 6px; text-decoration: none;">
+                  <vs-button
+                    shadow
+                    style="margin-right: 8px;"
+                    to="/admin/videos"
+                  >
                     Ver todos
-                  </NuxtLink>
+                  </vs-button>
                   <div class="center con-pagination">
-                    <vs-pagination v-model="page" only-arrows :length="10" />
+                    <!-- <vs-pagination v-model="page" only-arrows :length="10" /> -->
+                    <div class="vs-pagination-content vs-component--primary" style="--vs-color:;">
+                      <button
+                        class="vs-pagination__arrow prev"
+                        @click="showPrev('videosCarousel')"
+                      >
+                        <i class="vs-icon-arrow" />
+                      </button>
+                      <button
+                        class="vs-pagination__arrow next"
+                        @click="showNext('videosCarousel')"
+                      >
+                        <i class="vs-icon-arrow" />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -297,10 +315,8 @@
                   </vs-button>
                 </template>
               </vs-card> -->
-              <vs-card type="4" @click="video.dialog=!video.dialog">
+              <!-- <vs-card type="4" @click="video.dialog=!video.dialog">
                 <template #img>
-                  <!-- <div style="display: flex; width: 100%; justify-content: center; align-items: center;">
-                  </div> -->
                   <div class="upload-text-container">
                     <i class="bx bx-plus" />
                     <p>
@@ -313,9 +329,9 @@
                   <p />
                   <div style="display:block; width: 100%" />
                 </template>
-              </vs-card>
+              </vs-card> -->
             </vs-col>
-              <vs-col
+              <!-- <vs-col
                 v-for="_video in videos"
                 :key="_video.id"
                 vs-type="flex"
@@ -341,8 +357,59 @@
                     </vs-button>
                   </template>
                 </vs-card>
-              </vs-col>
+              </vs-col> -->
           </vs-row>
+        </div>
+        <div style="margin-bottom: 2rem;">
+            <VueSlickCarousel ref="videosCarousel" v-bind="settings">
+              <div class="video-container">
+                <div  class="vs-card-content type-4">
+                      <div class="vs-card">
+                        <div class="vs-card__img">
+                          <div class="upload-text-container">
+                            <i class="bx bx-plus" />
+                            <p>
+                              Subir vídeo(s)
+                            </p>
+                          </div>
+                        <img src="~/assets/images/square.png" alt="">
+                        </div>
+                        <div class="vs-card__text">
+                          <p />
+                          <div style="display: block; width: 100%;" />
+                        </div>
+                      </div>
+                </div>
+              </div>
+              <div
+                v-for="(_video, _id) in videos"
+                :key="_id"
+                class="video-container"
+              >
+                <div class="vs-card-content type-4" @click="video.dialog=!video.dialog">
+                  <div class="vs-card">
+                    <div class="vs-card__img">
+                      <img :src="_video.thumbnail" alt="">
+                      <div class="vs-card__interactions">
+                        <button class="vs-button btn-chat vs-button--null vs-button--size-null vs-button--primary vs-button--shadow">
+                          <div class="vs-button__content">
+                            <span class="span">
+                              {{ _video.duration }}
+                            </span>
+                          </div>
+                        </button>
+                      </div>
+                    </div>
+                  <div class="vs-card__text">
+                    <div class="vs-card__title">
+                      <h3 class="video-title">{{ _video.name }}</h3>
+                    </div>
+                    <p />
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </VueSlickCarousel>
         </div>
         <div class="center-grid">
           <vs-row style="margin-bottom: 1rem;">
@@ -352,17 +419,35 @@
                   Zonas
                 </h4>
                 <div style="display: flex; align-items: center;">
-                  <NuxtLink to="/admin/zones" style="margin-right: 6px; text-decoration: none;">
+                  <vs-button
+                    shadow
+                    style="margin-right: 8px;"
+                    to="/admin/zones"
+                  >
                     Ver todas
-                  </NuxtLink>
+                  </vs-button>
                   <div class="center con-pagination">
-                    <vs-pagination v-model="zonePage" only-arrows :length="10" />
+                    <!-- <vs-pagination v-model="zonePage" only-arrows :length="10" /> -->
+                    <div class="vs-pagination-content vs-component--primary" style="--vs-color:;">
+                      <button
+                        class="vs-pagination__arrow prev"
+                        @click="showPrev('zonesCarousel')"
+                      >
+                        <i class="vs-icon-arrow" />
+                      </button>
+                      <button
+                        class="vs-pagination__arrow next"
+                        @click="showNext('zonesCarousel')"
+                      >
+                        <i class="vs-icon-arrow" />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
             </vs-col>
           </vs-row>
-          <vs-row>
+          <!-- <vs-row>
             <vs-col
               v-for="_zone in zones"
               :key="_zone.id"
@@ -381,23 +466,86 @@
                 {{ _zone.name }}
               </vs-button>
             </vs-col>
-          </vs-row>
+          </vs-row> -->
         </div>
+          <VueSlickCarousel ref="zonesCarousel" v-bind="settings">
+            <div
+              class="zone-container"
+            >
+              <vs-button
+                block
+                dark
+                shadow
+                size="xl"
+                style="padding: 35px; min-height: 142px;"
+                class="add-zone"
+                @click="zone.dialog=!zone.dialog"
+              >
+                <i class="bx bx-plus" /> Nueva zona
+              </vs-button>
+            </div>
+              <div
+                v-for="_zone in zones"
+                :key="_zone.id"
+                class="zone-container"
+              >
+                  <vs-button
+                    block
+                    gradient
+                    size="xl"
+                    style="padding: 35px; min-height: 142px;"
+                    @click="zone.dialog=!zone.dialog"
+                  >
+                    {{ _zone.name }}
+                  </vs-button>
+              </div>
+          </VueSlickCarousel>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import VueSlickCarousel from 'vue-slick-carousel'
+import 'vue-slick-carousel/dist/vue-slick-carousel.css'
+
 export default {
+  components: { VueSlickCarousel },
   data: () => ({
     active: 'home',
     created: false,
     page: 1,
     zonePage: 1,
     settings: {
-      dots: true,
-      slidesToShow: 3
+      arrows: false,
+      slidesToShow: 6,
+      adaptiveHeight: false,
+      infinite: false,
+      speed: 400,
+      responsive: [
+        {
+          breakpoint: 1367,
+          settings: {
+            slidesToShow: 4,
+            slidesToScroll: 1
+          }
+        },
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 1
+          }
+        },
+        {
+          breakpoint: 576,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            variableWidth: false
+          }
+        }
+      ]
     },
     video: {
       id: 1,
@@ -515,6 +663,12 @@ export default {
   //   window.removeEventListener('resize', this.handleResize)
   // },
   methods: {
+    showNext (list) {
+      this.$refs[list].next()
+    },
+    showPrev (list) {
+      this.$refs[list].prev()
+    },
     handleResize () {
       this.window.width = window.innerWidth
       this.window.height = window.innerHeight
@@ -656,8 +810,8 @@ a, a:hover, a:visited, a:active, a:focus {
   margin-bottom: 1rem;
 }
 .upload-text-container:hover .bx-plus {
-  -webkit-animation: tada 1.5s ease infinite;
-  animation: tada 1.5s ease infinite;
+  -webkit-animation: tada 1.5s ease;
+  animation: tada 1.5s ease;
 }
 .video-title {
   display: inline-block;
@@ -670,5 +824,26 @@ a, a:hover, a:visited, a:active, a:focus {
   white-space: normal;
   text-overflow: unset;
   overflow: unset !important;
+}
+.video-container {
+  padding: 0.3rem 1rem 0 3% !important;
+  outline: none;
+}
+.zone-container {
+  padding: 0 1rem 0 1% !important;
+  outline: none;
+}
+.zone-container button {
+  height: 100px;
+}
+.add-zone .bx-plus {
+  font-size: 2rem;
+  margin-bottom: 0;
+  margin-right: 0.2rem;
+  margin-left: -10px;
+}
+.add-zone:hover .bx-plus {
+  -webkit-animation: tada 1.5s ease;
+  animation: tada 1.5s ease;
 }
 </style>

@@ -32,7 +32,6 @@
     "eslint-plugin-nuxt": "^1.0.0",
     "jest": "^26.5.0",
     "video.js": "^7.10.2",
-    "vue-concise-slider": "^3.4.4",
     "vue-jest": "^3.0.4"
   }
 }
