@@ -39,6 +39,12 @@ export default {
     prev () {
       this.player.playlist.previous()
     }
+  },
+  computed: {
+    optionsChange () {
+      console.log('OPTIONS CHANGED: ', this.options)
+      return 'hola'
+    }
   }
 }
 </script>

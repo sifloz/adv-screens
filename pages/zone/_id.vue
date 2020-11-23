@@ -15,6 +15,56 @@
           </template>
           Regresar al inicio
         </vs-sidebar-item> -->
+          <div style="display: flex; margin-top: 1.6rem;">
+              <template>
+                <div class="center">
+                  <vs-table v-model="selectedPlaylist" style="min-width: 260px;">
+                    <template #thead>
+                      <vs-tr>
+                        <vs-th>
+                          Listas de reproducción
+                        </vs-th>
+                      </vs-tr>
+                    </template>
+                    <template #tbody>
+                      <vs-tr
+                        :key="i"
+                        v-for="(tr, i) in currentZone.playlists"
+                        :data="tr"
+                        :is-selected="selectedPlaylist == tr"
+                      >
+                        <vs-td>
+                          {{ tr.name }}
+                        </vs-td>
+                        <!-- <template #expand>
+                          <div class="con-content">
+                            <div>
+                              <vs-avatar>
+                                <img :src="`/avatars/avatar-${i + 1}.png`" alt="">
+                              </vs-avatar>
+                              <p>
+                                {{ item.name }}
+                              </p>
+                            </div>
+                            <div>
+                              <vs-button flat icon>
+                                <i class='bx bx-lock-open-alt' ></i>
+                              </vs-button>
+                              <vs-button flat icon>
+                                Send Email
+                              </vs-button>
+                              <vs-button border danger>
+                                Remove User
+                              </vs-button>
+                            </div>
+                          </div>
+                        </template> -->
+                      </vs-tr>
+                    </template>
+                  </vs-table>
+                </div>
+              </template>
+          </div>
         <template #footer>
           <NuxtLink to="/">
             <vs-sidebar-item>
@@ -71,6 +121,7 @@ export default {
     active: '',
     activeSidebar: false,
     loading: true,
+    selectedPlaylist: null,
     videoOptions: {
       autoplay: true,
       controls: true,
@@ -114,12 +165,24 @@ export default {
   beforeMount () {
     this.currentZone = this.$store.getters.getZone(this.$route.params.id)
     this.videoOptions.samplePlaylist = this.currentZone.playlists[0].videos
+    this.selectedPlaylist = this.currentZone.playlists[0]
   },
   mounted () {
     console.log('CONTEXT: ', this.$route.params)
     setTimeout(() => {
       this.loading = false
     }, 2000)
+  },
+  watch: {
+    selectedPlaylist () {
+      if (this.selectedPlaylist && this.selectedPlaylist.id) {
+        const playlistId = this.selectedPlaylist.id
+        const playlistIndex = this.currentZone.playlists.findIndex(item => Number(item.id) === Number(playlistId))
+        if (playlistIndex >= 0) {
+          this.videoOptions.samplePlaylist = this.currentZone.playlists[playlistIndex].videos
+        }
+      }
+    }
   }
 }
 </script>
@@ -220,5 +283,8 @@ video, video:hover, video:focus, video:active {
 .vs-sidebar-content {
   top: unset;
   bottom: 0px !important;
+}
+.vs-table table {
+  min-width: 260px !important;
 }
 </style>

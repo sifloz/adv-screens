@@ -6,7 +6,6 @@
           <div class="center element">
             <vs-select
               v-model="value1"
-              filter
               label-placeholder="Elige una zona"
               @change="setZone"
             >
@@ -23,6 +22,7 @@
               v-model="zoneCode"
               label-placeholder="Código de acceso"
               type="password"
+              @keyup.enter="validateZone"
             >
               <template v-if="errorZoneCode" #message-danger>
                 {{ zoneCode === '' ? 'Introduce el código de acceso' : 'El código de acceso es incorrecto' }}
@@ -111,6 +111,11 @@ export default {
       this.errorZoneCode = false
       const selectedZoneId = this.zones.findIndex(item => item.id === this.value1)
       this.selectedZone = this.zones[selectedZoneId]
+    },
+    inputFeatures () {
+      return {
+        autocomplete: 'off'
+      }
     }
   }
 }
