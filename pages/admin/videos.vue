@@ -30,6 +30,7 @@
                       Z - A
                     </vs-option>
                   </vs-select>
+                  <vs-input placeholder="Buscar en vídeos" class="search-input" />
                   <div class="center con-pagination">
                     <!-- <vs-pagination v-model="page" only-arrows :length="10" /> -->
                     <div class="vs-pagination-content vs-component--primary" style="--vs-color:;">
@@ -52,6 +53,9 @@
             </vs-col>
           </vs-row>
           <vs-row class="select-mobile-row">
+            <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="12">
+               <vs-input block placeholder="Buscar en vídeos" class="search-input-mobile" />
+            </vs-col>
             <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="6">
               <vs-select v-model="zone" block placeholder="Zona" class="select-video-mobile">
                 <vs-option label="Todas las zonas" value="all">
@@ -437,6 +441,9 @@ export default {
 .row-special {
   margin-bottom: 1rem;
 }
+.search-input {
+  margin-right: 8px;
+}
 @media (max-width: 575.98px) {
   .select-video {
     visibility: hidden;
@@ -451,6 +458,10 @@ export default {
   }
   .row-special {
     margin-bottom: 0.5rem;
+  }
+  .search-input {
+    visibility: hidden;
+    display: none;
   }
 }
 </style>
