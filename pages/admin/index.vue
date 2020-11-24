@@ -73,18 +73,6 @@
           </vs-button>
         </div>
       </template>
-
-      <!-- <template #footer>
-        <div class="footer-dialog">
-          <vs-button block>
-            Sign In
-          </vs-button>
-
-          <div class="new">
-            New Here? <a href="#">Create New Account</a>
-          </div>
-        </div>
-      </template> -->
     </vs-dialog>
     <vs-dialog v-model="video.deleteAction" width="330px">
       <template #header>
@@ -128,11 +116,9 @@
           Información de la zona
         </h4>
       </template>
-
       <div class="con-content" style="margin-bottom: 1rem;">
         <vs-input v-model="zone.name" block label-placeholder="Nombre de la zona"></vs-input>
       </div>
-
       <template #footer>
         <div class="con-footer">
           <div style="margin-right: auto;">
@@ -197,55 +183,6 @@
       </template>
     </vs-dialog>
     <Sidebar :active="'home'" />
-    <!-- <template>
-      <div class="hidden">
-        <vs-sidebar
-          v-model="active"
-          absolute
-          hover-expand
-          reduce
-          open
-        >
-          <template #logo>
-            <div style="display: block; height: 28px;" />
-          </template>
-          <vs-sidebar-item id="home">
-            <template #icon>
-              <i class="bx bx-home-smile" />
-            </template>
-            Inicio
-          </vs-sidebar-item>
-          <vs-sidebar-item id="videos">
-            <template #icon>
-              <i class="bx bx-movie-play" />
-            </template>
-            Vídeos
-          </vs-sidebar-item>
-          <vs-sidebar-item id="zones" style="margin-bottom: auto;">
-            <template #icon>
-              <i class="bx bx-current-location" />
-            </template>
-            Zonas
-          </vs-sidebar-item>
-          <vs-sidebar-item id="settings">
-            <template #icon>
-              <i class="bx bx-cog" />
-            </template>
-            Ajustes
-          </vs-sidebar-item>
-          <vs-sidebar-item id="logout">
-            <template #icon>
-              <i class="bx bx-log-out" />
-            </template>
-            Cerrar sesión
-          </vs-sidebar-item>
-          <template #footer>
-            <vs-row justify="space-between" style="height: 32px;">
-            </vs-row>
-          </template>
-        </vs-sidebar>
-      </div>
-    </template> -->
     <div class="container">
       <div ref="holder" class="sub-container">
         <div class="center-grid">
@@ -639,7 +576,7 @@ export default {
     })
     setTimeout(() => {
       loading.close()
-    }, 2000)
+    }, 600)
     window.addEventListener('resize', this.handleResize)
     this.handleResize()
   },
