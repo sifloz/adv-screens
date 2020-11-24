@@ -16,7 +16,7 @@
                       Todas las zonas
                     </vs-option>
                   </vs-select>
-                  <vs-select v-model="period" placeholder="Periodo" class="select-video">
+                  <vs-select v-model="period" placeholder="Filtrar" class="select-video">
                     <vs-option label="Más recientes" value="recent">
                       Más recientes
                     </vs-option>
@@ -64,7 +64,7 @@
               </vs-select>
             </vs-col>
             <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="6">
-              <vs-select v-model="period" block placeholder="Periodo" class="select-video-mobile">
+              <vs-select v-model="period" block placeholder="Filtrar" class="select-video-mobile">
                 <vs-option label="Más recientes" value="recent">
                   Más recientes
                 </vs-option>
