@@ -305,4 +305,10 @@ video, video:hover, video:focus, video:active {
 .vs-table table {
   min-width: 260px !important;
 }
+.vs-sidebar-content.absolute {
+  z-index: 999007 !important;
+}
+.vs-avatar {
+  opacity: 0 !important;
+}
 </style>
