@@ -95,11 +95,11 @@
       <div class="center grid sub-container">
         <div class="frame-container">
           <div class="video-container">
-            <div class="embed-responsive embed-responsive-16by9">
+            <div ref="videoContainer" class="embed-responsive embed-responsive-16by9">
               <!-- <video src="https://s3-us-west-2.amazonaws.com/iungo.files/landing/microsites/DPE-presentacion.mp4" style="border-radius: 0 0 20px;">
                 Tu navegador no implementa el elemento <code>video</code>.
               </video> -->
-              <VideoPlayer :options="videoOptions" />
+              <VideoPlayer v-if="ready" :options="videoOptions" />
             </div>
           </div>
         </div>
@@ -128,6 +128,7 @@ export default {
     activeSidebar: false,
     loading: true,
     selectedPlaylist: null,
+    ready: true,
     videoOptions: {
       autoplay: true,
       controls: true,
@@ -185,7 +186,18 @@ export default {
         const playlistId = this.selectedPlaylist.id
         const playlistIndex = this.currentZone.playlists.findIndex(item => Number(item.id) === Number(playlistId))
         if (playlistIndex >= 0) {
+          this.ready = false
           this.videoOptions.samplePlaylist = this.currentZone.playlists[playlistIndex].videos
+
+          const loading = this.$vs.loading({
+            target: this.$refs.videoContainer,
+            background: '#000000',
+            color: '#ffffff'
+          })
+          setTimeout(() => {
+            this.ready = true
+            loading.close()
+          }, 2000)
         }
       }
     }

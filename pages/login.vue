@@ -4,7 +4,13 @@
       <vs-row>
         <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="12">
           <div class="center content-inputs input-element">
-            <vs-input v-model="email" icon-after label-placeholder="Correo electrónico" @change="() => setInputChange('email')">
+            <vs-input
+              v-model="email"
+              icon-after
+              label-placeholder="Correo electrónico"
+              @change="() => setInputChange('email')"
+              @keyup.enter="login"
+            >
               <template #icon>
                 <i class="bx bx-user" />
               </template>
@@ -14,7 +20,14 @@
             </vs-input>
           </div>
           <div class="center content-inputs input-element">
-            <vs-input v-model="password" type="password" icon-after label-placeholder="Contraseña" @change="() => setInputChange('password')">
+            <vs-input
+              v-model="password"
+              type="password"
+              icon-after
+              label-placeholder="Contraseña"
+              @change="() => setInputChange('password')"
+              @keyup.enter="login"
+            >
               <template #icon>
                 <i class="bx bx-lock-open-alt" />
               </template>

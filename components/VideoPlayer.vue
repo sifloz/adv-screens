@@ -32,6 +32,9 @@ export default {
     this.player.playlist.repeat(true)
     this.player.playlist.autoadvance(0)
   },
+  updated () {
+    this.player.playlist(this.options.samplePlaylist)
+  },
   methods: {
     next () {
       this.player.playlist.next()
