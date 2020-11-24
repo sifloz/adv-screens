@@ -93,7 +93,7 @@
     </div>
     <div class="container">
       <div class="center grid sub-container">
-        <div class="frame-container">
+        <div class="frame-container" :style="selectedPlaylist ? `background-image: url(${selectedPlaylist.frame})` : ''" >
           <div class="video-container">
             <div ref="videoContainer" class="embed-responsive embed-responsive-16by9">
               <!-- <video src="https://s3-us-west-2.amazonaws.com/iungo.files/landing/microsites/DPE-presentacion.mp4" style="border-radius: 0 0 20px;">
