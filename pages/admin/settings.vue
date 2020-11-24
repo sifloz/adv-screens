@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Sidebar :active="'zones'" />
+    <Sidebar :active="'settings'" />
   </div>
 </template>
 

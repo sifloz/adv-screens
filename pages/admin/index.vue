@@ -196,7 +196,8 @@
         </div>
       </template>
     </vs-dialog>
-    <template>
+    <Sidebar :active="'home'" />
+    <!-- <template>
       <div class="hidden">
         <vs-sidebar
           v-model="active"
@@ -240,22 +241,11 @@
           </vs-sidebar-item>
           <template #footer>
             <vs-row justify="space-between" style="height: 32px;">
-              <!-- <vs-avatar badge-color="danger" badge-position="top-right">
-                <i class="bx bx-bell" />
-
-                <template #badge>
-                  28
-                </template>
-              </vs-avatar>
-
-              <vs-avatar>
-                <img src="/avatars/avatar-5.png" alt="">
-              </vs-avatar> -->
             </vs-row>
           </template>
         </vs-sidebar>
       </div>
-    </template>
+    </template> -->
     <div class="container">
       <div ref="holder" class="sub-container">
         <div class="center-grid">
@@ -507,10 +497,11 @@
 
 <script>
 import VueSlickCarousel from 'vue-slick-carousel'
+import Sidebar from '~/components/Sidebar.vue'
 import 'vue-slick-carousel/dist/vue-slick-carousel.css'
 
 export default {
-  components: { VueSlickCarousel },
+  components: { Sidebar, VueSlickCarousel },
   data: () => ({
     active: 'home',
     created: false,
