@@ -26,7 +26,7 @@
                     <vs-option label="A - Z" value="ascendant">
                       A - Z
                     </vs-option>
-                    <vs-option disabled label="Z - A" value="descendant">
+                    <vs-option label="Z - A" value="descendant">
                       Z - A
                     </vs-option>
                   </vs-select>
