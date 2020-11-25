@@ -96,6 +96,15 @@ export default {
     passwordErrorMessage: '',
     updating: false
   }),
+  mounted () {
+    const loading = this.$vs.loading({
+      target: this.$refs.holder,
+      color: 'primary'
+    })
+    setTimeout(() => {
+      loading.close()
+    }, 600)
+  },
   methods: {
     updatePasswordHandler () {
       this.updatePassword = !this.updatePassword

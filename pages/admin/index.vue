@@ -421,7 +421,7 @@
                     gradient
                     size="xl"
                     style="padding: 35px; min-height: 142px;"
-                    @click="zone.dialog=!zone.dialog"
+                    :to="`admin/zones/${_zone.id}`"
                   >
                     {{ _zone.name }}
                   </vs-button>

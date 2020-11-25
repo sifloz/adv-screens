@@ -71,7 +71,11 @@ export default {
       } else if (this.section === 'videos') {
         this.$router.push('/admin/videos')
       } else if (this.section === 'zones') {
-        this.$router.push('/admin/zones')
+        if (this.$route.params && this.$route.params.id) {
+          this.$router.push(`/admin/zones/${this.$route.params.id}`)
+        } else {
+          this.$router.push('/admin/zones')
+        }
       } else if (this.section === 'settings') {
         this.$router.push('/admin/settings')
       } else if (this.section === 'logout') {
