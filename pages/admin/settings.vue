@@ -3,75 +3,77 @@
     <Sidebar :active="'settings'" />
     <div class="container">
       <div ref="holder" class="sub-container">
-        <h4 style="margin-bottom: 2rem;">
-          Ajustes
-        </h4>
-        <div class="center content-inputs input-element">
-          <vs-input
-            v-model="email"
-            icon-after
-            label-placeholder="Correo electrónico"
-          >
-            <template #icon>
-              <i class="bx bx-user" />
-            </template>
-            <template v-if="emailError" #message-danger>
-              {{ emailErrorMessage }}
-            </template>
-          </vs-input>
-        </div>
-        <template v-if="updatePassword">
+        <div shadow class="card-settings">
+          <h4 style="margin-bottom: 2rem;">
+            Ajustes
+          </h4>
           <div class="center content-inputs input-element">
             <vs-input
-              v-model="password"
+              v-model="email"
               icon-after
-              label-placeholder="Nueva contraseña"
-              type="password"
-              :visiblePassword="hasVisiblePassword"
-              @click-icon="hasVisiblePassword = !hasVisiblePassword"
+              label-placeholder="Correo electrónico"
             >
-              <template v-if="password !== '' || password.length > 0" #icon>
-                <i v-if="!hasVisiblePassword" class='bx bx-show-alt'></i>
-                <i v-else class='bx bx-hide'></i>
+              <template #icon>
+                <i class="bx bx-user" />
               </template>
-              <template v-if="passwordError" #message-danger>
-                {{ passwordErrorMessage }}
+              <template v-if="emailError" #message-danger>
+                {{ emailErrorMessage }}
               </template>
             </vs-input>
           </div>
-          <div class="center content-inputs input-element">
-            <vs-input
-              v-model="passwordRepeat"
-              icon-after
-              label-placeholder="Repetir nueva contraseña"
-              type="password"
-              :visiblePassword="hasVisiblePassword"
-              @click-icon="hasVisiblePassword = !hasVisiblePassword"
+          <template v-if="updatePassword">
+            <div class="center content-inputs input-element">
+              <vs-input
+                v-model="password"
+                icon-after
+                label-placeholder="Nueva contraseña"
+                type="password"
+                :visiblePassword="hasVisiblePassword"
+                @click-icon="hasVisiblePassword = !hasVisiblePassword"
+              >
+                <template v-if="password !== '' || password.length > 0" #icon>
+                  <i v-if="!hasVisiblePassword" class='bx bx-show-alt'></i>
+                  <i v-else class='bx bx-hide'></i>
+                </template>
+                <template v-if="passwordError" #message-danger>
+                  {{ passwordErrorMessage }}
+                </template>
+              </vs-input>
+            </div>
+            <div class="center content-inputs input-element">
+              <vs-input
+                v-model="passwordRepeat"
+                icon-after
+                label-placeholder="Repetir nueva contraseña"
+                type="password"
+                :visiblePassword="hasVisiblePassword"
+                @click-icon="hasVisiblePassword = !hasVisiblePassword"
+              >
+                <template v-if="passwordRepeat !== '' || passwordRepeat.length > 0" #icon>
+                  <i v-if="!hasVisiblePassword" class='bx bx-show-alt'></i>
+                  <i v-else class='bx bx-hide'></i>
+                </template>
+                <template v-if="passwordError" #message-danger>
+                  {{ passwordErrorMessage }}
+                </template>
+              </vs-input>
+            </div>
+          </template>
+          <div class="center button-container">
+            <vs-button
+              block
+              :loading="updating"
+              style="margin-left: 0px;"
+              @click="saveChangesHandler"
             >
-              <template v-if="passwordRepeat !== '' || passwordRepeat.length > 0" #icon>
-                <i v-if="!hasVisiblePassword" class='bx bx-show-alt'></i>
-                <i v-else class='bx bx-hide'></i>
-              </template>
-              <template v-if="passwordError" #message-danger>
-                {{ passwordErrorMessage }}
-              </template>
-            </vs-input>
+              Guardar cambios
+            </vs-button>
           </div>
-        </template>
-        <div class="center button-container">
-          <vs-button
-            block
-            :loading="updating"
-            style="margin-left: 0px;"
-            @click="saveChangesHandler"
-          >
-            Guardar cambios
-          </vs-button>
-        </div>
-        <div class="center button-container">
-          <vs-button block :disabled="updating" transparent style="margin-left: 0px;" @click="updatePasswordHandler">
-            {{ updatePassword ? 'Cancelar' : 'Actualizar contraseña' }}
-          </vs-button>
+          <div class="center button-container">
+            <vs-button block :disabled="updating" transparent style="margin-left: 0px;" @click="updatePasswordHandler">
+              {{ updatePassword ? 'Cancelar' : 'Actualizar contraseña' }}
+            </vs-button>
+          </div>
         </div>
       </div>
     </div>
@@ -164,6 +166,7 @@ export default {
 
 <style scoped>
 .container {
+  background-color: #f4f7f8;
   margin: 0 auto;
   min-height: 100vh;
   display: flex;
@@ -179,6 +182,13 @@ export default {
   overflow-y: scroll;
   justify-content: center;
 }
+.card-settings {
+  border-radius: 1rem;
+  padding: 3rem;
+  background-color: #ffffff;
+  -webkit-box-shadow: 0 5px 20px 0 rgba(0,0,0,0.05);
+  box-shadow: 0 5px 20px 0 rgba(0,0,0,0.05);
+}
 .vs-col {
   padding: 0 1%;
 }
@@ -190,5 +200,10 @@ export default {
 }
 .element {
   margin: 15px 0;
+}
+@media (max-width: 575.98px) {
+  .card-settings {
+    padding: 1rem;
+  }
 }
 </style>

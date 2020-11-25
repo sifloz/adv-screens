@@ -1,7 +1,7 @@
 <template>
   <div class="hidden">
     <vs-sidebar
-      v-model="active"
+      v-model="section"
       absolute
       hover-expand
       reduce
@@ -58,17 +58,23 @@ export default {
       }
     }
   },
+  data: () => ({
+    section: 'home'
+  }),
+  beforeMount () {
+    this.section = this.active
+  },
   watch: {
-    active () {
-      if (this.active === 'home') {
+    section () {
+      if (this.section === 'home') {
         this.$router.push('/admin')
-      } else if (this.active === 'videos') {
+      } else if (this.section === 'videos') {
         this.$router.push('/admin/videos')
-      } else if (this.active === 'zones') {
+      } else if (this.section === 'zones') {
         this.$router.push('/admin/zones')
-      } else if (this.active === 'settings') {
+      } else if (this.section === 'settings') {
         this.$router.push('/admin/settings')
-      } else if (this.active === 'logout') {
+      } else if (this.section === 'logout') {
         this.$router.push('/')
       }
     }
