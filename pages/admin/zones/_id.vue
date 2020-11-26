@@ -15,9 +15,9 @@
                 >
                   <i class='bx bx-arrow-back'></i>
                 </vs-button>
-                <h4 style="margin-left: 12px;">
+                <!-- <h4 style="margin-left: 12px;">
                   Torreón Coah
-                </h4>
+                </h4> -->
               </div>
             </vs-col>
           </vs-row>
@@ -25,14 +25,28 @@
             <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="5">
               <div class="zone-settings-container">
                 <div class="element">
-                  <vs-input v-model="zone.name" block label-placeholder="Nombre de la zona">
+                  <!-- <vs-input v-model="zone.name" block label-placeholder="Nombre de la zona">
                     <template #message-danger>
                       Por favor introduce un nombre para la zona
                     </template>
-                  </vs-input>
+                  </vs-input> -->
+                  <h4>Torreón Coah</h4>
+                  <vs-tooltip right>
+                    <vs-button
+                      icon
+                      dark
+                      shadow
+                      size="small"
+                    >
+                      <i class='bx bx-edit' />
+                    </vs-button>
+                    <template #tooltip>
+                      Editar
+                    </template>
+                  </vs-tooltip>
                 </div>
-                <div class="element-alt">
-                  <vs-select block label-placeholder="Elige una playlist" v-model="playlist">
+                <div class="element-alt" style="margin-bottom: 1rem;">
+                  <vs-select block label-placeholder="Elige una lista de reproducción" v-model="playlist">
                     <vs-option label="Vuesax" value="1">
                       Vuesax
                     </vs-option>
@@ -56,17 +70,8 @@
                     </vs-option>
                   </vs-select>
                 </div>
-                <div class="element-alt" style="margin-bottom: 1rem;">
-                  <vs-button
-                    border
-                    block
-                  >
-                    <i class="bx bx-plus" style="margin-right: 4px;" />
-                    Crear una lista de reproducción
-                  </vs-button>
-                </div>
                 <label style="display: block; margin-bottom: 0.5rem; font-size: 12px;">Marco de lista de reproducción</label>
-                <div style="display: flex; align-items: center; justify-content: center; width: 100%;">
+                <div style="display: flex; align-items: center; justify-content: center; width: 100%; margin-bottom: 1.5rem;">
                   <vs-card type="2">
                     <template #img>
                       <img src="https://vuesax.com/foto6.png" alt="">
@@ -102,9 +107,122 @@
                     </template>
                   </vs-card> -->
                 </div>
+                <div class="element-alt">
+                  <vs-button
+                    border
+                    block
+                  >
+                    <i class="bx bx-plus" style="margin-right: 4px;" />
+                    Crear nueva lista de reproducción
+                  </vs-button>
+                </div>
               </div>
             </vs-col>
             <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="7">
+              <div class="playlist-header">
+                <div style="display: flex; align-items: center;">
+                  <div style="margin-right: auto;">
+                    <label style="font-size: 12px">Lista de reproducción (18 vídeos)</label>
+                    <h4>Mi lista de reproducción favorita</h4>
+                  </div>
+                  <div style="display: flex;">
+                    <vs-tooltip bottom>
+                      <vs-button
+                        icon
+                        primary
+                        shadow
+                        size="small"
+                      >
+                        <i class='bx bx-edit' />
+                      </vs-button>
+                      <template #tooltip>
+                        Editar
+                      </template>
+                    </vs-tooltip>
+                    <vs-tooltip bottom>
+                      <vs-button
+                        icon
+                        danger
+                        transparent
+                        size="small"
+                      >
+                        <i class='bx bx-trash' />
+                      </vs-button>
+                      <template #tooltip>
+                        Eliminar
+                      </template>
+                    </vs-tooltip>
+                  </div>
+                </div>
+              </div>
+              <div class="hello">
+                <ul>
+                  <li>
+                    <div class="center-grid">
+                      <vs-row>
+                        <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="3">
+                          <div style="display: flex; align-items:center; justify-content: center; width: 100%; height: 80px; background-color: #0000ff; color: #ffffff;">
+                            Vídeo aquí
+                          </div>
+                        </vs-col>
+                        <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="6">
+                          <div style="display: flex; align-items: center; height: 80px; width: 100%; background: #00ff00; color: #ffffff;">
+                            Descripción y nombre del vídeo
+                          </div>
+                        </vs-col>
+                        <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="3">
+                          <div style="display: flex; align-items: center; width: 100%; height: 80px; background: #ff0000; color: #ffffff;">
+                            Opciones
+                          </div>
+                        </vs-col>
+                      </vs-row>
+                    </div>
+                  </li>
+                </ul>
+                <draggable
+                  class="list-group"
+                  tag="ul"
+                  v-model="list"
+                  v-bind="dragOptions"
+                  @start="isDragging = true"
+                  @end="isDragging = false"
+                >
+                  <transition-group type="transition" name="flip-list">
+                    <li
+                      class="list-group-item"
+                      v-for="(_video, _id) in zone.playlists[selectedPlaylistIndex].videos"
+                      :key="_id"
+                    >
+                      <div class="center-grid">
+                      <vs-row style="margin-bottom: 5px;">
+                        <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="3">
+                          <div style="display: flex; align-items:center; justify-content: center; width: 100%; height: 80px; background-color: #0000ff; color: #ffffff;">
+                            <i
+                              :class="
+                                _video.fixed ? 'bx bx-anchor' : 'bx bx-menu'
+                              "
+                              @click="_video.fixed = !_video.fixed"
+                              aria-hidden="true"
+                            ></i>
+                            Imágen del vídeo
+                          </div>
+                        </vs-col>
+                        <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="6">
+                          <div style="display: flex; align-items: center; height: 80px; width: 100%; background: #00ff00; color: #ffffff;">
+                            {{ _video.name }}
+                          </div>
+                        </vs-col>
+                        <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="3">
+                          <div style="display: flex; align-items: center; width: 100%; height: 80px; background: #ff0000; color: #ffffff;">
+                            Opciones
+                          </div>
+                        </vs-col>
+                      </vs-row>
+                    </div>
+                    </li>
+                  </transition-group>
+                </draggable>
+              </div>
             </vs-col>
           </vs-row>
         </div>
@@ -114,14 +232,80 @@
 </template>
 
 <script>
+import draggable from 'vuedraggable'
 import Sidebar from '~/components/Sidebar.vue'
 
 export default {
-  components: { Sidebar },
+  components: { draggable, Sidebar },
   data: () => ({
     playlist: '1',
+    selectedPlaylistIndex: 0,
     zone: {
-      name: 'Torreón, Coah'
+      name: 'Torreón, Coah',
+      playlists: [
+        {
+          id: 0,
+          name: 'Mi primer playlist',
+          videos: [
+            {
+              id: 1,
+              name: 'Mi primer vídeo.mp4',
+              duration: 3000,
+              thumbnail: '',
+              source: '',
+              order: 1
+            },
+            {
+              id: 2,
+              name: 'Mi segundo vídeo.mp4',
+              duration: 3000,
+              thumbnail: '',
+              source: '',
+              order: 2
+            },
+            {
+              id: 3,
+              name: 'Mi tercer vídeo.mp4',
+              duration: 3000,
+              thumbnail: '',
+              source: '',
+              order: 3
+            },
+            {
+              id: 4,
+              name: 'Mi cuarto vídeo.mp4',
+              duration: 3000,
+              thumbnail: '',
+              source: '',
+              order: 4
+            },
+            {
+              id: 5,
+              name: 'Mi quinto vídeo.mp4',
+              duration: 3000,
+              thumbnail: '',
+              source: '',
+              order: 5
+            },
+            {
+              id: 6,
+              name: 'Mi sexto vídeo.mp4',
+              duration: 3000,
+              thumbnail: '',
+              source: '',
+              order: 6
+            },
+            {
+              id: 7,
+              name: 'Mi septimo vídeo.mp4',
+              duration: 3000,
+              thumbnail: '',
+              source: '',
+              order: 7
+            }
+          ]
+        }
+      ]
     }
   }),
   mounted () {
@@ -132,6 +316,21 @@ export default {
     setTimeout(() => {
       loading.close()
     }, 600)
+  },
+  methods: {
+    sort () {
+      this.zone.playlists[this.selectedPlaylistIndex].videos = this.zone.playlists[this.selectedPlaylistIndex].videos.sort((a, b) => a.order - b.order)
+    }
+  },
+  computed: {
+    dragOptions () {
+      return {
+        animation: 200,
+        group: 'description',
+        disabled: false,
+        ghostClass: 'ghost'
+      }
+    }
   }
 }
 </script>
@@ -143,7 +342,7 @@ export default {
   overflow: hidden;
 }
 .sub-container {
-  padding: 40px 20px 40px 70px;
+  padding: 32px 20px 40px 70px;
   width: 100%;
   height: 100%;
   overflow-y: scroll;
@@ -152,10 +351,13 @@ export default {
   padding: 0 1%;
 }
 .row-special {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 .element {
-  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1rem;
 }
 .element-alt {
   margin-bottom: 1rem;
@@ -163,8 +365,44 @@ export default {
 .zone-settings-container {
   background-color: #ffffff;
   border-radius: 1rem;
-  padding: 2.8rem 2rem 2rem 2rem;
+  padding: 2rem 2rem 2rem 2rem;
   -webkit-box-shadow: 0 5px 20px 0 rgba(0,0,0,0.05);
   box-shadow: 0 5px 20px 0 rgba(0,0,0,0.05);
+}
+.playlist-header {
+  background-color: #ffffff;
+  border-radius: 1rem;
+  padding: 2rem 2rem 2rem 2rem;
+  -webkit-box-shadow: 0 5px 20px 0 rgba(0,0,0,0.05);
+  box-shadow: 0 5px 20px 0 rgba(0,0,0,0.05);
+}
+ul {
+  list-style: none;
+}
+.button {
+  margin-top: 35px;
+}
+.flip-list-move {
+  transition: transform 0.5s;
+}
+.no-move {
+  transition: transform 0s;
+}
+.ghost {
+  opacity: 0.5;
+  background: #c8ebfb;
+}
+.list-group {
+  min-height: 20px;
+  padding-inline-start: 0;
+}
+.list-group-item {
+  cursor: move;
+}
+.list-group-item i {
+  cursor: pointer;
+}
+.hello .sortable-drag {
+  opacity: 0;
 }
 </style>
