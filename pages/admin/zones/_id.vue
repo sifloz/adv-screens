@@ -156,7 +156,7 @@
                 </div>
               </div>
               <div class="hello">
-                <ul>
+                <!-- <ul>
                   <li>
                     <div class="center-grid">
                       <vs-row>
@@ -178,12 +178,13 @@
                       </vs-row>
                     </div>
                   </li>
-                </ul>
+                </ul> -->
                 <draggable
                   class="list-group"
                   tag="ul"
                   v-model="list"
                   v-bind="dragOptions"
+                  style="padding-inline-start: 0px !important;"
                   @start="isDragging = true"
                   @end="isDragging = false"
                 >
@@ -195,7 +196,7 @@
                     >
                       <div class="center-grid">
                       <vs-row style="margin-bottom: 5px;">
-                        <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="3">
+                         <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="1">
                           <div style="display: flex; align-items:center; justify-content: center; width: 100%; height: 80px; background-color: #0000ff; color: #ffffff;">
                             <i
                               :class="
@@ -204,10 +205,14 @@
                               @click="_video.fixed = !_video.fixed"
                               aria-hidden="true"
                             ></i>
+                          </div>
+                        </vs-col>
+                        <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="3">
+                          <div style="display: flex; align-items:center; justify-content: center; width: 100%; height: 80px; background-color: #0000ff; color: #ffffff;">
                             Imágen del vídeo
                           </div>
                         </vs-col>
-                        <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="6">
+                        <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="5">
                           <div style="display: flex; align-items: center; height: 80px; width: 100%; background: #00ff00; color: #ffffff;">
                             {{ _video.name }}
                           </div>
@@ -375,9 +380,11 @@ export default {
   padding: 2rem 2rem 2rem 2rem;
   -webkit-box-shadow: 0 5px 20px 0 rgba(0,0,0,0.05);
   box-shadow: 0 5px 20px 0 rgba(0,0,0,0.05);
+  margin-bottom: 1rem;
 }
 ul {
   list-style: none;
+  padding-inline-start: unset !important;
 }
 .button {
   margin-top: 35px;
@@ -394,13 +401,17 @@ ul {
 }
 .list-group {
   min-height: 20px;
-  padding-inline-start: 0;
+  padding-inline-start: 0px !important;
 }
 .list-group-item {
   cursor: move;
 }
 .list-group-item i {
   cursor: pointer;
+}
+.hello {
+  max-height: calc(100vh - 232px);
+  overflow-y: scroll;
 }
 .hello .sortable-drag {
   opacity: 0;
