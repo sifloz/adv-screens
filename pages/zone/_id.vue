@@ -23,11 +23,36 @@
           <div style="display: flex; margin-top: 1rem;">
               <template>
                 <div class="center">
+                  <vs-table style="min-width: 260px;">
+                    <template #thead>
+                      <vs-tr>
+                        <vs-th>
+                          Currently playing
+                        </vs-th>
+                      </vs-tr>
+                    </template>
+                    <template #tbody>
+                      <vs-tr
+                        :is-selected="true"
+                      >
+                        <vs-td style="display: flex; align-items: center; font-weight: 700;">
+                          <i class="bx bx-play-circle" style="margin-top: 2px; margin-right: 5px; font-size: 1.5rem;" />
+                          {{ selectedPlaylist && selectedPlaylist.name ? selectedPlaylist.name : 'N/A' }}
+                        </vs-td>
+                      </vs-tr>
+                    </template>
+                  </vs-table>
+                </div>
+              </template>
+          </div>
+          <div style="display: flex; margin-top: 0rem;">
+              <template>
+                <div class="center">
                   <vs-table v-model="selectedPlaylist" style="min-width: 260px;">
                     <template #thead>
                       <vs-tr>
                         <vs-th>
-                          Listas de reproducción
+                          Playlists
                         </vs-th>
                       </vs-tr>
                     </template>
@@ -36,9 +61,8 @@
                         :key="i"
                         v-for="(tr, i) in currentZone.playlists"
                         :data="tr"
-                        :is-selected="selectedPlaylist == tr"
                       >
-                        <vs-td :style="selectedPlaylist == tr ? 'display: flex; align-items: center; font-weight: 700;' : 'display: flex; align-items: center;'">
+                        <vs-td v-if="tr !== selectedPlaylist" :style="selectedPlaylist == tr ? 'display: flex; align-items: center; font-weight: 700;' : 'display: flex; align-items: center;'">
                           <i v-if="selectedPlaylist == tr" class="bx bx-play-circle" style="margin-top: 2px; margin-right: 5px; font-size: 1.5rem;" />
                           {{ tr.name }}
                         </vs-td>
@@ -77,7 +101,7 @@
               <template #icon>
                 <i class="bx bxs-home-smile" />
               </template>
-              Regresar al inicio
+              Back to home
             </vs-sidebar-item>
           </NuxtLink>
           <vs-row justify="space-between">

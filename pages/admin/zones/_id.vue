@@ -41,7 +41,7 @@
                       <i class='bx bx-edit' />
                     </vs-button>
                     <template #tooltip>
-                      Editar
+                      Edit
                     </template>
                   </vs-tooltip>
                 </div>
@@ -113,7 +113,7 @@
                     block
                   >
                     <i class="bx bx-plus" style="margin-right: 4px;" />
-                    Crear nueva lista de reproducción
+                    New playlist
                   </vs-button>
                 </div>
               </div>
@@ -122,7 +122,7 @@
               <div class="playlist-header">
                 <div style="display: flex; align-items: center;">
                   <div style="margin-right: auto;">
-                    <label style="font-size: 12px">Lista de reproducción (18 vídeos)</label>
+                    <label style="font-size: 12px">Playlist (18 videos)</label>
                     <h4>Mi lista de reproducción favorita</h4>
                   </div>
                   <div style="display: flex;">
@@ -136,7 +136,7 @@
                         <i class='bx bx-edit' />
                       </vs-button>
                       <template #tooltip>
-                        Editar
+                        Edit
                       </template>
                     </vs-tooltip>
                     <vs-tooltip bottom>
@@ -149,7 +149,7 @@
                         <i class='bx bx-trash' />
                       </vs-button>
                       <template #tooltip>
-                        Eliminar
+                        Delete
                       </template>
                     </vs-tooltip>
                   </div>
@@ -209,7 +209,7 @@
                         </vs-col>
                         <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="3">
                           <div style="display: flex; align-items:center; justify-content: center; width: 100%; height: 80px; background-color: #0000ff; color: #ffffff;">
-                            Imágen del vídeo
+                            Video image
                           </div>
                         </vs-col>
                         <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="5">
@@ -219,7 +219,7 @@
                         </vs-col>
                         <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="3">
                           <div style="display: flex; align-items: center; width: 100%; height: 80px; background: #ff0000; color: #ffffff;">
-                            Opciones
+                            Options
                           </div>
                         </vs-col>
                       </vs-row>

@@ -7,7 +7,7 @@
             <vs-input
               v-model="email"
               icon-after
-              label-placeholder="Correo electrónico"
+              label-placeholder="Email"
               @change="() => setInputChange('email')"
               @keyup.enter="login"
             >
@@ -24,7 +24,7 @@
               v-model="password"
               type="password"
               icon-after
-              label-placeholder="Contraseña"
+              label-placeholder="Password"
               @change="() => setInputChange('password')"
               @keyup.enter="login"
             >
@@ -43,7 +43,7 @@
               :loading="processLogin"
               @click="login"
             >
-              Acceso
+              Log in
             </vs-button>
           </div>
           <div class="center element">
@@ -56,7 +56,7 @@
             >
               <i class="bx bxs-home-smile" />
               <template #animate>
-                Regresar al inicio
+                Back to home
               </template>
             </vs-button>
           </div>
@@ -91,12 +91,12 @@ export default {
       } else {
         if (!validEmail) {
           this.errorMail = true
-          this.errorMailMessage = this.email.length <= 0 ? 'Introduce un correo electrónico' : 'El correo electrónico no es válido'
+          this.errorMailMessage = this.email.length <= 0 ? 'Enter an email' : 'Email is not valid'
         }
 
         if (!validPassword) {
           this.errorPassword = true
-          this.errorPasswordMessage = 'Contraseña inválida (6 caracteres)'
+          this.errorPasswordMessage = 'Password not valid (6 characters)'
         }
       }
     },

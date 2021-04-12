@@ -6,11 +6,11 @@
           <div class="center element">
             <vs-select
               v-model="value1"
-              label-placeholder="Elige una zona"
+              label-placeholder="Choose a spot"
               @change="setZone"
             >
               <template v-if="errorZone" #message-danger>
-                Por favor elige una zona
+                Please choose a spot
               </template>
               <vs-option v-for="zone in zones" :key="zone.id" :label="zone.name" :value="zone.id">
                 {{ zone.name }}
@@ -20,12 +20,12 @@
           <div v-if="value1 !== ''" class="center element">
             <vs-input
               v-model="zoneCode"
-              label-placeholder="Código de acceso"
+              label-placeholder="Access code"
               type="password"
               @keyup.enter="validateZone"
             >
               <template v-if="errorZoneCode" #message-danger>
-                {{ zoneCode === '' ? 'Introduce el código de acceso' : 'El código de acceso es incorrecto' }}
+                {{ zoneCode === '' ? 'Enter the access code' : 'The access code is incorrect' }}
               </template>
             </vs-input>
           </div>
@@ -36,7 +36,7 @@
               :loading="accesing"
               @click="validateZone"
             >
-              Acceso
+              Access
             </vs-button>
           </div>
           <div class="center element">
@@ -46,7 +46,7 @@
               to="/login"
               class="button-margin"
             >
-              Panel de control
+              Control panel
             </vs-button>
           </div>
         </vs-col>

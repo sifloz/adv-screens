@@ -80,7 +80,7 @@
             <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="12">
               <div style="display: flex; width: 100%; align-items: center; justify-content: space-between;">
                 <h4>
-                  Zonas <small>(2 zonas)</small>
+                  Spots <small>(2 spots)</small>
                 </h4>
                 <div style="display: flex; align-items: center;">
                   <vs-select v-model="period" placeholder="Filtrar" class="select-video">
@@ -91,7 +91,7 @@
                       Z - A
                     </vs-option>
                   </vs-select>
-                  <vs-input placeholder="Buscar zonas" class="search-input" />
+                  <vs-input placeholder="Search spots" class="search-input" />
                   <div class="center con-pagination">
                     <!-- <vs-pagination v-model="page" only-arrows :length="10" /> -->
                     <div class="vs-pagination-content vs-component--primary" style="--vs-color:;">
@@ -115,15 +115,15 @@
           </vs-row>
           <vs-row class="select-mobile-row">
             <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="6">
-               <vs-input block placeholder="Buscar zonas" class="search-input-mobile" />
+               <vs-input block placeholder="Search spots" class="search-input-mobile" />
             </vs-col>
             <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="6">
               <vs-select v-model="period" block placeholder="Filtrar" class="select-video-mobile">
-                <vs-option label="Más recientes" value="recent">
-                  Más recientes
+                <vs-option label="Most recent" value="recent">
+                  Most recent
                 </vs-option>
-                <vs-option label="Más antiguos" value="older">
-                  Más antiguos
+                <vs-option label="Older" value="older">
+                  Older
                 </vs-option>
                 <vs-option label="A - Z" value="ascendant">
                   A - Z
@@ -149,7 +149,7 @@
                   style="min-height: 100px;"
                   class="add-zone"
                 >
-                  <i class="bx bx-plus" /> Nueva zona
+                  <i class="bx bx-plus" /> New spot
                 </vs-button>
               </div>
             </vs-col>
@@ -284,8 +284,8 @@ export default {
           icon: "<i class='bx bx-check-circle'></i>",
           border: 'success',
           duration: 4000,
-          title: 'Guardar cambios',
-          text: 'Se actualizó la información de la zona'
+          title: 'Save changes',
+          text: 'Spot information was updated'
         })
       }, 400)
     },
@@ -299,8 +299,8 @@ export default {
           icon: "<i class='bx bx-trash'></i>",
           border: 'success',
           duration: 4000,
-          title: 'Eliminar zona',
-          text: 'La zona ha sido eliminado'
+          title: 'Delete spot',
+          text: 'Spot was deleted'
         })
       }, 400)
     }

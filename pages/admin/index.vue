@@ -30,11 +30,11 @@
               </div>
               <vs-select
                 v-model="video.zones"
-                label="Visibilidad en zonas"
+                label="Spot visibility"
                 block
                 filter
                 multiple
-                placeholder="Buscar"
+                placeholder="Search"
               >
                 <vs-option label="Torreón, Coah." value="1">
                   Torreón, Coah.
@@ -69,7 +69,7 @@
             :loading="video.saving"
             @click="saveVideoHandler"
           >
-            Guardar cambios
+            Save changes
           </vs-button>
         </div>
       </template>
@@ -77,11 +77,11 @@
     <vs-dialog v-model="video.deleteAction" width="330px">
       <template #header>
         <h4 class="not-margin">
-          Eliminar vídeo
+          Delete video
         </h4>
       </template>
       <p style="text-align: center;">
-        ¿Estás seguro de que quieres eliminar este vídeo?<br>Una vez eliminado no podrás recuperarlo<br><br>
+        Are you sure you want to delete this video?<br>Once deleted you will not be able to recover it<br><br>
       </p>
       <template #footer>
         <div class="center grid">
@@ -93,7 +93,7 @@
                 transparent
                 @click="video.deleteAction = false"
               >
-                Cancelar
+                Cancel
               </vs-button>
             </vs-col>
             <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="6">
@@ -103,7 +103,7 @@
                 :loading="video.deleting"
                 @click="deleteVideoHandler"
               >
-                Eliminar
+                Delete video
               </vs-button>
             </vs-col>
           </vs-row>
@@ -113,7 +113,7 @@
     <vs-dialog width="300px" not-center v-model="zone.dialog">
       <template #header>
         <h4 class="not-margin" style="margin-bottom: 1rem;">
-          Información de la zona
+          Spot information
         </h4>
       </template>
       <div class="con-content" style="margin-bottom: 1rem;">
@@ -134,13 +134,13 @@
           </div>
           <div style="display: flex; align-items: center;">
           <vs-button @click="zone.dialog=false" dark transparent>
-            Cancelar
+            Cancel
           </vs-button>
           <vs-button
             :loading="zone.saving"
             @click="saveZoneHandler"
           >
-            Guardar
+            Save spot
           </vs-button>
           </div>
         </div>
@@ -149,11 +149,11 @@
     <vs-dialog v-model="zone.deleteAction" width="330px">
       <template #header>
         <h4 class="not-margin">
-          Eliminar zona
+          Delete spot
         </h4>
       </template>
       <p style="text-align: center;">
-        ¿Estás seguro de que quieres eliminar esta zona?<br>Una vez eliminada, ya no tendrás acceso a ella ni podrás recuperarla<br><br>
+        Are you sure you want to delete this spot?<br>Once deleted, you will no longer have access to it and you will not be able to recover it<br><br>
       </p>
       <template #footer>
         <div class="center grid">
@@ -165,7 +165,7 @@
                 transparent
                 @click="zone.deleteAction = false"
               >
-                Cancelar
+                Cancel
               </vs-button>
             </vs-col>
             <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="6">
@@ -175,7 +175,7 @@
                 :loading="zone.deleting"
                 @click="deleteZoneHandler"
               >
-                Eliminar
+                Delete spot
               </vs-button>
             </vs-col>
           </vs-row>
@@ -190,7 +190,7 @@
             <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="12">
               <div style="display: flex; width: 100%; align-items: center; justify-content: space-between;">
                 <h4>
-                  Vídeos recientes
+                  Recent videos
                 </h4>
                 <div style="display: flex; align-items: center;">
                   <vs-button
@@ -198,7 +198,7 @@
                     style="margin-right: 8px;"
                     to="/admin/videos"
                   >
-                    Ver todos
+                    Show all
                   </vs-button>
                   <div class="center con-pagination">
                     <!-- <vs-pagination v-model="page" only-arrows :length="10" /> -->
@@ -296,7 +296,7 @@
                           <div class="upload-text-container">
                             <i class="bx bx-plus" />
                             <p>
-                              Subir vídeo(s)
+                              Upload video(s)
                             </p>
                           </div>
                         <img src="~/assets/images/square.png" alt="">
@@ -343,7 +343,7 @@
             <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="12">
               <div style="display: flex; width: 100%; align-items: center; justify-content: space-between;">
                 <h4>
-                  Zonas
+                  Spots
                 </h4>
                 <div style="display: flex; align-items: center;">
                   <vs-button
@@ -351,7 +351,7 @@
                     style="margin-right: 8px;"
                     to="/admin/zones"
                   >
-                    Ver todas
+                    Show all
                   </vs-button>
                   <div class="center con-pagination">
                     <!-- <vs-pagination v-model="zonePage" only-arrows :length="10" /> -->
@@ -408,7 +408,7 @@
                 class="add-zone"
                 @click="zone.dialog=!zone.dialog"
               >
-                <i class="bx bx-plus" /> Nueva zona
+                <i class="bx bx-plus" /> New spot
               </vs-button>
             </div>
               <div

@@ -14,31 +14,31 @@
         <template #icon>
           <i class="bx bx-home-smile" />
         </template>
-        Inicio
+        Home
       </vs-sidebar-item>
       <vs-sidebar-item id="videos">
         <template #icon>
           <i class="bx bx-movie-play" />
         </template>
-        Vídeos
+        Videos
       </vs-sidebar-item>
       <vs-sidebar-item id="zones" style="margin-bottom: auto;">
         <template #icon>
           <i class="bx bx-current-location" />
         </template>
-        Zonas
+        Spots
       </vs-sidebar-item>
       <vs-sidebar-item id="settings">
         <template #icon>
           <i class="bx bx-cog" />
         </template>
-        Ajustes
+        Settings
       </vs-sidebar-item>
       <vs-sidebar-item id="logout">
         <template #icon>
           <i class="bx bx-log-out" />
         </template>
-        Cerrar sesión
+        Log out
       </vs-sidebar-item>
       <template #footer>
         <vs-row justify="space-between" style="height: 32px;">

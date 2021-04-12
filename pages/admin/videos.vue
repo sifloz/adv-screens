@@ -8,20 +8,20 @@
             <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="12">
               <div style="display: flex; width: 100%; align-items: center; justify-content: space-between;">
                 <h4>
-                  Vídeos <small>(18 vídeos)</small>
+                  Videos <small>(18 videos)</small>
                 </h4>
                 <div style="display: flex; align-items: center;">
                   <vs-select v-model="zone" placeholder="Zona" class="select-video">
-                    <vs-option label="Todas las zonas" value="all">
-                      Todas las zonas
+                    <vs-option label="All spots" value="all">
+                      All spots
                     </vs-option>
                   </vs-select>
-                  <vs-select v-model="period" placeholder="Filtrar" class="select-video">
-                    <vs-option label="Más recientes" value="recent">
-                      Más recientes
+                  <vs-select v-model="period" placeholder="Filter" class="select-video">
+                    <vs-option label="Most recent" value="recent">
+                      Most recent
                     </vs-option>
-                    <vs-option label="Más antiguos" value="older">
-                      Más antiguos
+                    <vs-option label="Older" value="older">
+                      Older
                     </vs-option>
                     <vs-option label="A - Z" value="ascendant">
                       A - Z
@@ -30,7 +30,7 @@
                       Z - A
                     </vs-option>
                   </vs-select>
-                  <vs-input placeholder="Buscar en vídeos" class="search-input" />
+                  <vs-input placeholder="Search videos" class="search-input" />
                   <div class="center con-pagination">
                     <!-- <vs-pagination v-model="page" only-arrows :length="10" /> -->
                     <div class="vs-pagination-content vs-component--primary" style="--vs-color:;">
@@ -54,22 +54,22 @@
           </vs-row>
           <vs-row class="select-mobile-row">
             <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="12">
-               <vs-input block placeholder="Buscar en vídeos" class="search-input-mobile" />
+               <vs-input block placeholder="Search videos" class="search-input-mobile" />
             </vs-col>
             <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="6">
               <vs-select v-model="zone" block placeholder="Zona" class="select-video-mobile">
-                <vs-option label="Todas las zonas" value="all">
-                  Todas las zonas
+                <vs-option label="All spots" value="all">
+                  All spots
                 </vs-option>
               </vs-select>
             </vs-col>
             <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="6">
-              <vs-select v-model="period" block placeholder="Filtrar" class="select-video-mobile">
-                <vs-option label="Más recientes" value="recent">
-                  Más recientes
+              <vs-select v-model="period" block placeholder="Filter" class="select-video-mobile">
+                <vs-option label="Most recent" value="recent">
+                  Most recent
                 </vs-option>
-                <vs-option label="Más antiguos" value="older">
-                  Más antiguos
+                <vs-option label="Older" value="older">
+                  Older
                 </vs-option>
                 <vs-option label="A - Z" value="ascendant">
                   A - Z
@@ -90,7 +90,7 @@
                     <div class="upload-text-container">
                       <i class="bx bx-plus" />
                       <p>
-                        Subir vídeo(s)
+                        Upload video(s)
                       </p>
                     </div>
                   <img src="~/assets/images/square.png" alt="">
