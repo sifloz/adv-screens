@@ -4,7 +4,7 @@
       <vs-row>
         <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="12">
           <div class="center element">
-            <vs-select
+            <!-- <vs-select
               v-model="value1"
               label-placeholder="Choose a spot"
               @change="setZone"
@@ -15,17 +15,27 @@
               <vs-option v-for="zone in zones" :key="zone.id" :label="zone.name" :value="zone.id">
                 {{ zone.name }}
               </vs-option>
-            </vs-select>
-          </div>
-          <div v-if="value1 !== ''" class="center element">
+            </vs-select> -->
             <vs-input
-              v-model="zoneCode"
+              v-model="spotCode.value"
+              label-placeholder="Enter a spot's code"
+              max-length="6"
+              @keyup.enter="validateSpot"
+            >
+              <template v-if="spotCode.error" #message-danger>
+                {{ spotCode.message }}
+              </template>
+            </vs-input>
+          </div>
+          <div v-if="spotCode.valid" class="center element">
+            <vs-input
+              v-model="spotPassword.value"
               label-placeholder="Access code"
               type="password"
-              @keyup.enter="validateZone"
+              @keyup.enter="validateSpotPassword"
             >
-              <template v-if="errorZoneCode" #message-danger>
-                {{ zoneCode === '' ? 'Enter the access code' : 'The access code is incorrect' }}
+              <template v-if="spotPassword.error" #message-danger>
+                {{ spotPassword.message }}
               </template>
             </vs-input>
           </div>
@@ -34,9 +44,9 @@
               block
               class="button-margin"
               :loading="accesing"
-              @click="validateZone"
+              @click="!spotCode.valid ? validateSpot : validateSpotPassword"
             >
-              Access
+              {{ spotCode.valid ? 'Continue' : 'Access' }} <i class="bx bx-right-arrow-alt " />
             </vs-button>
           </div>
           <div class="center element">
@@ -60,6 +70,18 @@ export default {
   data: () => ({
     value1: '',
     zoneCode: '',
+    spotCode: {
+      value: '',
+      valid: false,
+      error: false,
+      message: ''
+    },
+    spotPassword: {
+      value: '',
+      valid: false,
+      error: false,
+      message: ''
+    },
     errorZone: false,
     errorZoneCode: false,
     accesing: false,
@@ -91,18 +113,52 @@ export default {
     // }
   },
   methods: {
-    validateZone () {
-      if (this.value1 === '') {
-        this.errorZone = true
-      } else if (this.zoneCode === '' || this.zoneCode !== this.selectedZone.code) {
-        this.errorZoneCode = true
+    validateSpot () {
+      if (this.spotCode.value === '' || this.spotCode.value === null || this.spotCode.value.length <= 0) {
+        this.spotCode.valid = false
+        this.spotCode.error = true
+        this.spotCode.message = 'Enter a 6-digit spot code'
+      } else if (this.spotCode.value.length < 6) {
+        this.spotCode.valid = false
+        this.spotCode.error = true
+        this.spotCode.message = 'Spot code must have 6 digits'
+      } else if (this.spotCode.value.length > 6) {
+        this.spotCode.valid = false
+        this.spotCode.error = true
+        this.spotCode.message = 'Spot code must have 6 digits'
       } else {
-        this.accesing = true
+        this.spotCode.error = false
+        this.spotCode.message = ''
         this.errorZoneCode = false
         this.errorZone = false
+        this.accesing = true
+        setTimeout(() => {
+          this.accesing = false
+          this.spotCode.valid = true
+        }, 600)
+        // setTimeout(() => {
+        //   // this.accesing = false
+        //   this.$router.push(`/spots/${this.value1}`)
+        // }, 2000)
+      }
+    },
+    validateSpotPassword () {
+      if (this.spotPassword.value === '') {
+        this.spotPassword.valid = false
+        this.spotPassword.error = true
+        this.spotPassword.message = 'Enter the spot\'s password'
+      } else if (this.spotPassword.value.length < 6) {
+        this.spotPassword.valid = false
+        this.spotPassword.error = true
+        this.spotPassword.message = 'Spot\'s password is not valid'
+      } else {
+        this.spotPassword.valid = true
+        this.spotPassword.error = false
+        this.spotPassword.message = 'Spot\'s password is not valid'
+        this.accesing = true
         setTimeout(() => {
           // this.accesing = false
-          this.$router.push(`/zone/${this.value1}`)
+          this.$router.push('/spots/saltillo-coah')
         }, 2000)
       }
     },
@@ -138,5 +194,9 @@ export default {
 
 .element {
   margin: 18px 0;
+}
+
+.button-icon {
+  margin-top: 0.15rem !important;
 }
 </style>
