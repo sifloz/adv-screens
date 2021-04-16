@@ -5,13 +5,13 @@
       <div ref="holder" class="sub-container">
         <div shadow class="card-settings">
           <h4 style="margin-bottom: 2rem;">
-            Ajustes
+            Settings
           </h4>
           <div class="center content-inputs input-element">
             <vs-input
               v-model="email"
               icon-after
-              label-placeholder="Correo electrónico"
+              label-placeholder="Email"
             >
               <template #icon>
                 <i class="bx bx-user" />
@@ -26,7 +26,7 @@
               <vs-input
                 v-model="password"
                 icon-after
-                label-placeholder="Nueva contraseña"
+                label-placeholder="New password"
                 type="password"
                 :visiblePassword="hasVisiblePassword"
                 @click-icon="hasVisiblePassword = !hasVisiblePassword"
@@ -44,7 +44,7 @@
               <vs-input
                 v-model="passwordRepeat"
                 icon-after
-                label-placeholder="Repetir nueva contraseña"
+                label-placeholder="Repeat new password"
                 type="password"
                 :visiblePassword="hasVisiblePassword"
                 @click-icon="hasVisiblePassword = !hasVisiblePassword"
@@ -66,12 +66,12 @@
               style="margin-left: 0px;"
               @click="saveChangesHandler"
             >
-              Guardar cambios
+              Save changes
             </vs-button>
           </div>
           <div class="center button-container">
             <vs-button block :disabled="updating" transparent style="margin-left: 0px;" @click="updatePasswordHandler">
-              {{ updatePassword ? 'Cancelar' : 'Actualizar contraseña' }}
+              {{ updatePassword ? 'Cancel' : 'Update password' }}
             </vs-button>
           </div>
         </div>
@@ -123,21 +123,21 @@ export default {
         if (this.updatePassword === true) {
           if (this.password === '' || this.passwordRepeat === '') {
             this.passwordError = true
-            this.passwordErrorMessage = 'Introduce la misma contraseña'
+            this.passwordErrorMessage = 'Enter the same password'
             if (!this.validateEmail(this.email)) {
               this.emailError = true
-              this.emailErrorMessage = 'Correo electrónico inválido'
+              this.emailErrorMessage = 'Email is not valid'
             }
           } else if (this.password !== this.passwordRepeat) {
             this.passwordError = true
-            this.passwordErrorMessage = 'Las contraseñas no coinciden'
+            this.passwordErrorMessage = 'Passwords don\'t match'
             if (!this.validateEmail(this.email)) {
               this.emailError = true
-              this.emailErrorMessage = 'Correo electrónico inválido'
+              this.emailErrorMessage = 'Email is not valid'
             }
           } else if (!this.validateEmail(this.email)) {
             this.emailError = true
-            this.emailErrorMessage = 'Correo electrónico inválido'
+            this.emailErrorMessage = 'Email is not valid'
           } else {
             this.updating = true
             setTimeout(() => {
@@ -147,7 +147,7 @@ export default {
           }
         } else if (!this.validateEmail(this.email)) {
           this.emailError = true
-          this.emailErrorMessage = 'Correo electrónico inválido'
+          this.emailErrorMessage = 'Email is not valid'
         } else {
           this.updating = true
           setTimeout(() => {
@@ -165,8 +165,8 @@ export default {
       this.$vs.notification({
         border: 'success',
         duration: 4000,
-        title: 'Actualización de datos',
-        text: 'Se ha actualizado la información de la cuenta'
+        title: 'Account data updated',
+        text: 'Account data & information was updated'
       })
     }
   }

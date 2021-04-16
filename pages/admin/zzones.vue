@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Sidebar :active="'zones'" />
+    <Sidebar :active="'spots'" />
     <div class="container">
       <div ref="holder" class="sub-container">
         <div class="center-grid">

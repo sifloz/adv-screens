@@ -6,7 +6,7 @@
           404
         </h1>
         <h3>
-          No se encontró la página que buscabas
+          The page you were looking for was not found
         </h3>
       </template>
       <template v-else>
@@ -14,7 +14,7 @@
           500
         </h1>
         <h3>
-          Ocurrió un error inesperado, por favor inténtalo más tarde
+          An unexpected error occurred, please try again later
         </h3>
       </template>
       <vs-row style="justify-content: center;">
@@ -24,7 +24,7 @@
             floating
             to="/"
           >
-            Regresar al inicio
+            Back to home
           </vs-button>
         </vs-col>
       </vs-row>

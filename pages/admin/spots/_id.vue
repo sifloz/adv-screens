@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Sidebar :active="'zones'" />
+    <Sidebar :active="'spots'" />
     <div class="container">
       <div ref="holder" class="sub-container">
         <div class="center-grid">
@@ -11,7 +11,7 @@
                   dark
                   flat
                   icon
-                  to="/admin/zones"
+                  to="/admin/spots"
                 >
                   <i class='bx bx-arrow-back'></i>
                 </vs-button>
@@ -46,7 +46,7 @@
                   </vs-tooltip>
                 </div>
                 <div class="element-alt" style="margin-bottom: 1rem;">
-                  <vs-select block label-placeholder="Elige una lista de reproducción" v-model="playlist">
+                  <vs-select block label-placeholder="Choose a playlist" v-model="playlist">
                     <vs-option label="Vuesax" value="1">
                       Vuesax
                     </vs-option>
@@ -70,7 +70,7 @@
                     </vs-option>
                   </vs-select>
                 </div>
-                <label style="display: block; margin-bottom: 0.5rem; font-size: 12px;">Marco de lista de reproducción</label>
+                <label style="display: block; margin-bottom: 0.5rem; font-size: 12px;">Playlist frame</label>
                 <div style="display: flex; align-items: center; justify-content: center; width: 100%; margin-bottom: 1.5rem;">
                   <vs-card type="2">
                     <template #img>

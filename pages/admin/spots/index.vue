@@ -72,7 +72,7 @@
         </div>
       </template>
     </vs-dialog>
-    <Sidebar :active="'zones'" />
+    <Sidebar :active="'spots'" />
     <div class="container">
       <div ref="holder" class="sub-container">
         <div class="center-grid">
@@ -97,12 +97,14 @@
                     <div class="vs-pagination-content vs-component--primary" style="--vs-color:;">
                       <button
                         class="vs-pagination__arrow prev"
+                        :disabled="true"
                         @click="showPrev('zonesCarousel')"
                       >
                         <i class="vs-icon-arrow" />
                       </button>
                       <button
                         class="vs-pagination__arrow next"
+                        :disabled="true"
                         @click="showNext('zonesCarousel')"
                       >
                         <i class="vs-icon-arrow" />

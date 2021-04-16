@@ -349,7 +349,7 @@
                   <vs-button
                     shadow
                     style="margin-right: 8px;"
-                    to="/admin/zones"
+                    to="/admin/spots"
                   >
                     Show all
                   </vs-button>
@@ -421,7 +421,7 @@
                     gradient
                     size="xl"
                     style="padding: 35px; min-height: 142px;"
-                    :to="`admin/zones/${_zone.id}`"
+                    :to="`admin/spots/${_zone.id}`"
                   >
                     {{ _zone.name }}
                   </vs-button>
