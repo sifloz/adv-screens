@@ -41,12 +41,22 @@
           </div>
           <div class="center element">
             <vs-button
+              v-if="!spotCode.valid"
               block
               class="button-margin"
               :loading="accesing"
-              @click="!spotCode.valid ? validateSpot : validateSpotPassword"
+              @click="validateSpot"
             >
-              {{ spotCode.valid ? 'Continue' : 'Access' }} <i class="bx bx-right-arrow-alt " />
+              Continue <i class="bx bx-right-arrow-alt " />
+            </vs-button>
+            <vs-button
+              v-else
+              block
+              class="button-margin"
+              :loading="accesing"
+              @click="validateSpotPassword"
+            >
+              Access <i class="bx bx-right-arrow-alt " />
             </vs-button>
           </div>
           <div class="center element">
